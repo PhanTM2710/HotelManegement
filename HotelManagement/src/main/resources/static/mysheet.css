@@ -1,0 +1,13 @@
+@charset "ISO-8859-1";
+.header {
+	background-image: url("https://furamavietnam.com/wp-content/uploads/2018/08/banner01.jpg?id=1433)%20!important");
+	background-size: cover;
+}
+
+body {
+	width: 1366px;
+	height: 657px;
+}
+.ul1 > ul{
+	float: right;
+}
