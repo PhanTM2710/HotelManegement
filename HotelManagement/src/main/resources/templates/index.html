@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -10,17 +11,39 @@
 <title>Home page</title>
 </head>
 <body>
-	<div style="width: 1366px; height: 250px;" class="header">		
+	<div style="width: 100%; height: 250px;" class="header">		
 	</div>
-	<div class="ul1">
-		<nav class="navbar navbar-expand-sm bg-success navbar-dark">
-			<ul class="navbar-nav">
-				<li class="nav-item "><a class="nav-link" href="6">Room</a></li>
-				<li class="nav-item"><a class="nav-link" href="6">Service</a></li>
-				<li class="nav-item"><a class="nav-link" href="6">Booking manager</a></li>
-				<li class="nav-item "><a class="nav-link" href="6">Sign in</a></li>
-			</ul>
+	<div class="sticky-top">
+		<nav style="width: 100%; height: 50px; background-color: green;" >
+			<div class="float-right" style="padding-right: 10px;">
+				<div class="d-flex flex-row-reverse"
+					style="padding-right: 3px; padding-top: 5px;">
+					<a class="p-2 " style="color: white;" href="#">Sing
+						In</a> 
+					<a class="p-2 " style="color: white" href="#">Booking
+						manage |</a> 
+					<a class="p-2 " style="color: white" href="#">Service
+						|</a> 
+					<a class="p-2 " style="color: white" href="/room">Room |</a>
+				</div>
+			</div>
 		</nav>
+	</div>
+	<div class="divContainRoom">
+		<div class="divtyperoom" >
+			<div class="divRoom" th:each="room : ${typeroom}">
+				<div class="divimage">
+					<img style="width: 369px; height: 200px;" alt="anh"
+						th:src="@{'../image/'+${room.image}}">
+				</div>
+				<div class="divtyperoomtext">
+					<span style="font-size: 16px; margin-left: 10px;">type: </span><span
+						style="font-size: 18px;" th:text="${room.type}"></span><br> <span
+						style="font-size: 16px; margin-left: 10px;">size: </span><span
+						style="font-size: 20px;" th:text="${room.size}"></span>
+				</div>
+			</div>
+		</div>		
 	</div>
 </body>
 </html>
