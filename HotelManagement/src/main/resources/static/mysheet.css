@@ -1,7 +1,7 @@
 @charset "ISO-8859-1";
 body {
 	width: 1366px;
-	height: 657px;
+	min-height: 657px;
 }
 
 .header {
@@ -12,8 +12,8 @@ body {
 .divContainRoom{
 	width:100%;
 	min-height:355px;
-	background-size: cover;
-	background-image: url("../image/background1.png");
+	background-repeat:repeat;
+	background-image: url("../image/background3.png");
 }
 
 .divtyperoom{
@@ -35,7 +35,6 @@ body {
 	width: 100%;
 	height: 77%;	
 	background-size:cover;
-
 }
 
 .divtyperoomtext{
@@ -43,9 +42,9 @@ body {
 	height: 23%;
 	color :#ffffff;
 	background-color:gray;
-	margin: auto;
 	font-weight: 600;
 }
+
 .divRoom > img {
 	width: 367px;
 	height: 200px;

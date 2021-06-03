@@ -1,20 +1,20 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <link rel="stylesheet" href="mysheet.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<title>Home page</title>
+<title>Service page</title>
 </head>
 <body>
+	<div>
 	<div style="width: 100%; height: 250px;" class="header">		
 	</div>
 	<div class="sticky-top">
-		<nav style="width: 100%; height: 50px; background-color: green;" >
+		<nav  style="width: 100%; height: 50px; background-color: green;" >
 			<div class="float-right" style="padding-right: 10px;">
 				<div class="d-flex flex-row-reverse"
 					style="padding-right: 3px; padding-top: 5px;">
@@ -31,19 +31,31 @@
 	</div>
 	<div class="divContainRoom">
 		<div class="divtyperoom" >
-			<div class="divRoom" th:each="room : ${typeroom}">
+			<div class="divRoom" th:each="service : ${listservice}">
 				<div class="divimage">
 					<img style="width: 369px; height: 200px;" alt="anh"
-						th:src="@{'../image/'+${room.image}}">
+						th:src="@{'../image/'+${service.image}}">
 				</div>
-				<div class="divtyperoomtext">
-					<span style="font-size: 16px; margin-left: 10px;">type: </span><span
-						style="font-size: 18px;" th:text="${room.type}"></span><br> <span
-						style="font-size: 16px; margin-left: 10px;">size: </span><span
-						style="font-size: 20px;" th:text="${room.size}"></span>
+			<div class="divtyperoomtext" style="padding-top: 1px;" >
+				<div style="width: 90%;height: 80%; margin: auto;">
+					<p style="font-size: 18px; margin-top: 15px;" th:text="${service.name}"></p>
+				</div>		
+
+
+
+							<!-- 							<span style="font-size: 16px; margin-left: 10px;">Price: </span> -->
+							<!-- 							<span style="font-size: 20px;" th:text="${service.price}"></span> -->
+							<!-- 							<p>VNĐ</p> -->
+							<!-- 							<span style="font-size: 16px; margin-left: 10px;">Desc: </span><span -->
+							<!-- 								style="font-size: 18px;" th:text="${service.desciption}"></span><br> -->
+							<!-- 							<span style="font-size: 16px; margin-left: 10px;">Unit: </span><span -->
+							<!-- 								style="font-size: 20px;" th:text="${service.unit}"></span> -->
+			</div>
+			</div>
 				</div>
 			</div>
-		</div>		
+<!-- 		</div>		 -->
+<!-- 	</div> -->
 	</div>
 </body>
 </html>

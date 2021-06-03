@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.projectHotel.PhanLam.entity.Service;
 import com.projectHotel.PhanLam.entity.TypeRoom;
+import com.projectHotel.PhanLam.repository.IService;
 import com.projectHotel.PhanLam.repository.ITypeRoom;
 
 @Controller
@@ -19,6 +21,9 @@ public class HomeController {
 	@Autowired
 	private ITypeRoom typeroom;
 	
+	@Autowired
+	private IService service;
+		
 	@GetMapping(value = {"/room","/"})
 	public String getListRoom(Model model) {
 		List<TypeRoom> listtypeRoom = typeroom.findAll();
@@ -26,4 +31,10 @@ public class HomeController {
 	    return "index";
 	}
 	
+	@GetMapping(value = "/service")
+	public String getListService(Model model) {
+		List<Service> listService = service.findAll();
+		model.addAttribute("listservice",listService);			
+		return "service";
+	}
 }
