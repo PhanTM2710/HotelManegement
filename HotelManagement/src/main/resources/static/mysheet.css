@@ -45,7 +45,24 @@ body {
 	font-weight: 600;
 }
 
-.divRoom > img {
-	width: 367px;
-	height: 200px;
+.showmore {	
+width: 400px;
+height:400px;
+align-items: center!important;
+vertical-align: middle!important;
+}
+
+.popupshowmore{
+	width:400px;
+	height:200px;
+	align-items: center;	
+}
+.modal{
+	max-width: none;
+}
+.buttonShowmore{
+	vertical-align: middle;
+    margin-top: 11px;
+    margin-right: 10px;
+    background-color: forestgreen;
 }
