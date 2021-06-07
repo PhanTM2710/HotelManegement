@@ -25,7 +25,6 @@
 	}); 	
   </script>
 <title>Service page</title>
-
 </head>
 <body>
 	<div>
@@ -36,7 +35,7 @@
 					<div class="d-flex flex-row-reverse"
 						style="padding-right: 3px; padding-top: 5px;">
 						<a class="p-2 " style="color: white;" href="#">Sign In</a> <a
-							class="p-2 " style="color: white" href="#">Booking manage |</a> <a
+							class="p-2 " style="color: white" href="/test">Booking manage |</a> <a
 							class="p-2 " style="color: white" href="/service">Service |</a> <a
 							class="p-2 " style="color: white" href="/room"> Types Room |</a>
 					</div>
@@ -47,12 +46,16 @@
 			<div class="divtyperoom" >
 				<div class="divRoom" th:each="service : ${listservice}">
 					<div class="divimage">
-						<img style="width: 369px; height: 200px;" alt="anh"
-							th:src="@{'../image/'+${service.image}}">
+						<div class="book">
+							<a th:href="@{showroom/(id=${service.serviceId})}"
+								class="btn btn-primary">Book now</a>
+						</div>
+						<img class="divimage--img" style="width: 369px; height: 200px;" alt="anh"
+							th:src="@{'../image/'+${service.image}}">															
 					</div>					
 					<div class="divtyperoomtext abc" style="padding-top: 1px;">
 						<div class="buttonShowmore " >		
-						<a class="btn btn-primary float-right " th:href="@{showmore/(id=${service.serviceId})}" data-toggle="modal" data-target="#showmoreModal" th:attr="data-target='#showmoreModal'+${service.serviceId}">Show more</a>
+						<a class="btn btn-primary float-right " th:href="@{showmore/id=${service.serviceId}}" data-toggle="modal" data-target="#showmoreModal" th:attr="data-target='#showmoreModal'+${service.serviceId}">Show more</a>
 						</div>	
 						<div class="myForm">														
 						<div class="modal fade " th:id="showmoreModal+${service.serviceId}" style="width: 1366px;height: 100%;background: none;" >

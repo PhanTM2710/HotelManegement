@@ -46,4 +46,8 @@ public class HomeController {
 		return service.findById(id);
 	}
 	
+	@GetMapping(value = "test")
+	public String test() {
+		return "showRoom";
+	}
 }

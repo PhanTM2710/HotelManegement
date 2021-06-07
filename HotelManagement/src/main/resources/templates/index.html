@@ -31,16 +31,20 @@
 	</div>
 	<div class="divContainRoom">
 		<div class="divtyperoom" >
-			<div class="divRoom" th:each="room : ${typeroom}">
+			<div class="divRoom" th:each="typeroom : ${typeroom}">
 				<div class="divimage">
+					<div class="book">
+						<a th:href="@{showroom/(id=${typeroom.typeRoomId})}"
+							class="btn btn-primary">Book now</a>
+					</div>
 					<img style="width: 369px; height: 200px;" alt="anh"
-						th:src="@{'../image/'+${room.image}}">
+						th:src="@{'../image/'+${typeroom.image}}">
 				</div>
 				<div class="divtyperoomtext">
 					<span style="font-size: 16px; margin-left: 10px;">type: </span><span
-						style="font-size: 18px;" th:text="${room.type}"></span><br> <span
+						style="font-size: 18px;" th:text="${typeroom.type}"></span><br> <span
 						style="font-size: 16px; margin-left: 10px;">size: </span><span
-						style="font-size: 20px;" th:text="${room.size}"></span>
+						style="font-size: 20px;" th:text="${typeroom.size}"></span>
 				</div>
 			</div>
 		</div>		
