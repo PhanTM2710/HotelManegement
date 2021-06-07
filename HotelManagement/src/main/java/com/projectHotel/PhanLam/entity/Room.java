@@ -21,8 +21,20 @@ public class Room {
 	private double price;
 	private String type;
 	private String description;
-	private int numberAdults;
-	private int numberChildren;
+	private String roomCapacity;
+
+	
+	public String getRoomCapacity() {
+		return roomCapacity;
+	}
+
+	public void setRoomCapacity(String roomCapacity) {
+		this.roomCapacity = roomCapacity;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "booking_id")
+	private Booking booking;
 
 	@OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
 	private List<Image> image;
@@ -79,21 +91,6 @@ public class Room {
 		this.roomNumber = roomNumber;
 	}
 
-	public int getNumberAdults() {
-		return numberAdults;
-	}
-
-	public void setNumberAdults(int numberAdults) {
-		this.numberAdults = numberAdults;
-	}
-
-	public int getNumberChildren() {
-		return numberChildren;
-	}
-
-	public void setNumberChildren(int numberChildren) {
-		this.numberChildren = numberChildren;
-	}
 
 	public List<Image> getImage() {
 		return image;
@@ -102,5 +99,11 @@ public class Room {
 	public void setImage(List<Image> image) {
 		this.image = image;
 	}
+	public Booking getBooking() {
+		return booking;
+	}
 
+	public void setBooking(Booking booking) {
+		this.booking = booking;
+	}
 }
