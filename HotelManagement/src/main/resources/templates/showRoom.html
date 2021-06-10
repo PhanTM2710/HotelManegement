@@ -2,21 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<link rel="stylesheet" href="mysheet.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="mysheet.css">
 	<style type="text/css">
 		.btn-outline-secondary {
 			background-color: white;
-		}
+		};		
 	</style>
+<script type="text/javascript">$('.carousel').carousel();</script>
 <title>Show Room</title>
 </head>
 <body>
@@ -36,12 +37,89 @@
 							<td><a href="#" class="btn btn-primary" style="margin-left: 5px;">Search</a></td>
 						</tr>
 					</table>
-				</div>
-			
+				</div>			
 			</div>
 		</div>
-
-    </div>
+		<div class="divContainRoom">
+			<div  style="display: flex;">
+				<div class="TextTypeRoom">
+					<div style="height: 50px;"><h2 style="margin-left: 10px;">Type Room</h2></div>
+					<div style="width: 60%; margin: auto;" >
+						<div th:each="typeRoom : ${listTypeRoom}">
+							<a th:href="@{typeRoom/(id=${typeRoom.id})}"
+								class="btn btn-primary" th:text ="${typeRoom.type}" style="width:150px; margin-bottom: 5px; "></a>
+						</div>
+					</div>					
+				</div>
+				<div class="listRoom">
+					<div style="height: 50px;"><h2 style="margin-left: 10px;">List room</h2></div>
+					<div class="room" th:each="room : ${listRoom}">
+						<div class="imageRoom" >
+							<div th:id="'carouselExampleControls'+${room.id}" class="carousel slide" data-ride="carousel" >
+							  <div class="carousel-inner ">
+							  	<th:block th:each="image : ${room.image}">
+								  	<div th:if="${room.image.indexOf(image) == 0}" class="carousel-item active">
+										<img class="d-block w-100" th:src="@{'../image/'+${image.img}}" style="width: 100%; height: 220px;">
+								    </div>
+								    <div th:unless="${room.image.indexOf(image) == 0}" class="carousel-item">
+										<img class="d-block w-100" th:src="@{'../image/'+${image.img}}" style="width: 100%; height: 220px;">
+								    </div>
+							    </th:block>
+							  </div>
+							  <a class="carousel-control-prev" th:href="'#carouselExampleControls'+${room.id}" role="button" data-slide="prev">
+							    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							    <span class="sr-only">Previous</span>
+							  </a>
+							  <a class="carousel-control-next" th:href="'#carouselExampleControls'+${room.id}" role="button" data-slide="next">
+							    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							    <span class="sr-only">Next</span>
+							  </a>
+							</div>
+							</th:block>					
+						</div>
+						<div class="ContentRoom">
+							<div class="divtyperoomtext">
+								<span style="font-size: 16px; margin-left: 10px;">type: </span><span
+									style="font-size: 18px;" th:text="${room.roomNumber}"></span><br>
+								<span style="font-size: 16px; margin-left: 10px;">size: </span><span
+									style="font-size: 20px;" th:text="${room.price}"></span>
+							</div>
+						</div>
+						<div>
+							phan
+						</div>
+					</div>
+					<!-- 				<div class="divRoom" th:each="room : ${listRoom}"> -->
+<!-- 					<div id="carouselExampleControls" class="carousel slide divimage" data-ride="carousel" > -->
+<!-- 					  <div class="carousel-inner " th:each="image : ${room.image}"> -->
+<!-- 					    <div class="carousel-item active"> -->
+<!-- 					      <img style="width: 369px; height: 200px;" alt="anh" -->
+<!-- 												th:src="@{'../image/'+${image.img}}"> -->
+<!-- 							<img class="d-block w-100" th:src="@{'../image/'+${image.img}}" alt="First slide">					 -->
+<!-- 					    </div> -->
+<!-- 					  </div> -->
+<!-- 					  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev"> -->
+<!-- 					    <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+<!-- 					    <span class="sr-only">Previous</span> -->
+<!-- 					  </a> -->
+<!-- 					  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next"> -->
+<!-- 					    <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+<!-- 					    <span class="sr-only">Next</span> -->
+<!-- 					  </a> -->
+<!-- 					</div>						 -->
+<!-- 					<div class="divtyperoomtext"> -->
+<!-- 						<span style="font-size: 16px; margin-left: 10px;">type: </span><span -->
+<!-- 							style="font-size: 18px;" th:text="${room.roomNumber}"></span><br> <span -->
+<!-- 							style="font-size: 16px; margin-left: 10px;">size: </span><span -->
+<!-- 							style="font-size: 20px;" th:text="${room.price}"></span> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+				</div>
+				
+			</div>		
+		</div>
+ 	</div>
+ 	
     <script>
 	    var today = new Date();
 	 	var today_format =  (today.getMonth() + 1) + "/"

@@ -47,7 +47,7 @@
 				<div class="divRoom" th:each="service : ${listservice}">
 					<div class="divimage">
 						<div class="book">
-							<a th:href="@{showroom/(id=${service.serviceId})}"
+							<a th:href="@{showroom/(id=${service.id})}"
 								class="btn btn-primary">Book now</a>
 						</div>
 						<img class="divimage--img" style="width: 369px; height: 200px;" alt="anh"
@@ -55,10 +55,10 @@
 					</div>					
 					<div class="divtyperoomtext abc" style="padding-top: 1px;">
 						<div class="buttonShowmore " >		
-						<a class="btn btn-primary float-right " th:href="@{showmore/id=${service.serviceId}}" data-toggle="modal" data-target="#showmoreModal" th:attr="data-target='#showmoreModal'+${service.serviceId}">Show more</a>
+						<a class="btn btn-primary float-right " th:href="@{showmore/id=${service.id}}" data-toggle="modal" data-target="#showmoreModal" th:attr="data-target='#showmoreModal'+${service.id}">Show more</a>
 						</div>	
 						<div class="myForm">														
-						<div class="modal fade " th:id="showmoreModal+${service.serviceId}" style="width: 1366px;height: 100%;background: none;" >
+						<div class="modal fade " th:id="showmoreModal+${service.id}" style="width: 1366px;height: 100%;background: none;" >
 							<div class="modal-dialog modal-dialog-centered  showmore" >
  								<div class="modal-content" style="color: black;"> 
  									<div class="modal-header">

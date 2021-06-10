@@ -34,7 +34,7 @@
 			<div class="divRoom" th:each="typeroom : ${typeroom}">
 				<div class="divimage">
 					<div class="book">
-						<a th:href="@{showroom/(id=${typeroom.typeRoomId})}"
+						<a th:href="@{showroom(startDateStr='',endDateStr='')}"
 							class="btn btn-primary">Book now</a>
 					</div>
 					<img style="width: 369px; height: 200px;" alt="anh"
