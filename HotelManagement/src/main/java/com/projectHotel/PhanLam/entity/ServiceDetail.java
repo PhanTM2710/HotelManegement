@@ -1,18 +1,14 @@
 package com.projectHotel.PhanLam.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
-public class BookingDetail {
+public class ServiceDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -22,12 +18,9 @@ public class BookingDetail {
 	private Booking booking;
 	
 	@ManyToOne
-	@JoinColumn(name = "room_id")
-	private Room room;
-	
-	@OneToMany(mappedBy = "bookingDetail")
-	private List<InRoom> customers;
-	
+	@JoinColumn(name = "service_id")
+	private Service service;
+
 	public Booking getBooking() {
 		return booking;
 	}
@@ -36,14 +29,13 @@ public class BookingDetail {
 		this.booking = booking;
 	}
 
-	public List<InRoom> getCustomers() {
-		return customers;
+	public Service getService() {
+		return service;
 	}
 
-	public void setCustomers(List<InRoom> customers) {
-		this.customers = customers;
+	public void setService(Service service) {
+		this.service = service;
 	}
-
 
 	public int getId() {
 		return id;
@@ -52,11 +44,6 @@ public class BookingDetail {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Room getRoom() {
-		return room;
-	}
 
-	public void setRoom(Room room) {
-		this.room = room;
-	}
+	
 }

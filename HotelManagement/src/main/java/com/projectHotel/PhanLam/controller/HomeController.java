@@ -59,17 +59,7 @@ public class HomeController {
 	
 	@GetMapping(value = "/showroom")
 	public String showRoom(@RequestParam String startDateStr, @RequestParam String endDateStr, Model model) {
-		
-//		Date startDate, endDate;
-//		
-//		if (startDateStr.isEmpty() || endDateStr.isEmpty()) {
-//		    startDate = new Date();
-//		    endDate = startDate;
-//		} else {
-//			startDate = new SimpleDateFormat("MM/dd/yyyy").parse(startDateStr);
-//			endDate = new SimpleDateFormat("MM/dd/yyyy").parse(endDateStr);  
-//		}
-		
+				
 		if (startDateStr.isEmpty() || endDateStr.isEmpty()) {
 		    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 		    startDateStr = sdf.format(new Date());
@@ -79,12 +69,9 @@ public class HomeController {
 	    System.out.println("startDate = " + startDateStr);
 	    System.out.println("endDate = " + endDateStr);
 		List<TypeRoom> listTypeRoom = typeroom.findAll();		
-		List<Room> listRoom =room.findByBooking_startDateAndBooking_endDate( startDateStr, endDateStr);
-		for (Room room : listRoom) {
-			System.out.println(room.toString());
-		}
+		List<Room> listRoom =room.filterRoomAvailable( startDateStr, endDateStr);
+		model.addAttribute("listRoomall", listRoom);
 		model.addAttribute("listTypeRoom", listTypeRoom);
-		model.addAttribute("listRoom", listRoom);
 		
 		return "showRoom";
 	}

@@ -8,23 +8,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Image {
+public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String img;
-		
+	private String role;
+	
 	@ManyToOne
-	@JoinColumn(name="room_id")
-	private Room rooms;	
-
-	public Room getRooms() {
-		return rooms;
-	}
-
-	public void setRooms(Room rooms) {
-		this.rooms = rooms;
-	}
+	@JoinColumn(name = "account_id")
+	private Account account;
 
 	public int getId() {
 		return id;
@@ -34,11 +26,20 @@ public class Image {
 		this.id = id;
 	}
 
-	public String getImg() {
-		return img;
+	public String getRole() {
+		return role;
 	}
-	public void setImg(String img) {
-		this.img = img;
+
+	public void setRole(String role) {
+		this.role = role;
 	}
-		
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+	
 }

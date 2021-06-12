@@ -1,7 +1,5 @@
 package com.projectHotel.PhanLam.entity;
 
-import java.util.Date;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,12 +13,12 @@ public class Person {
 	private String name;
 	private String phone;
 	private String address;
-	private Date birthday;
+	private String birthday;
 	
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	public int getId() {

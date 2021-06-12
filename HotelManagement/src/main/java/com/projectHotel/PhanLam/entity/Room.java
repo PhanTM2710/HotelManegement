@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -24,11 +23,11 @@ public class Room {
 	private String type;
 	private String description;
 	private String roomCapacity;
+	
+	@OneToMany(mappedBy = "room")
+	private List<BookingDetail> bookingDetail;
 
-    @ManyToMany(mappedBy = "rooms")
-	private List<Booking> booking;
-
-	@OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "rooms", fetch = FetchType.EAGER)
 	private List<Image> image =new ArrayList<Image>();
 
 	@ManyToOne
@@ -92,28 +91,22 @@ public class Room {
 		this.image = image;
 	}
 
-	
-	public List<Booking> getBooking() {
-		return booking;
-	}
-
-	public void setBooking(List<Booking> booking) {
-		this.booking = booking;
-	}
 
 	public String getRoomCapacity() {
 		return roomCapacity;
+	}
+
+	public List<BookingDetail> getBookingDetail() {
+		return bookingDetail;
+	}
+
+	public void setBookingDetail(List<BookingDetail> bookingDetail) {
+		this.bookingDetail = bookingDetail;
 	}
 
 	public void setRoomCapacity(String roomCapacity) {
 		this.roomCapacity = roomCapacity;
 	}
 
-	@Override
-	public String toString() {
-		return "Room [roomId=" + id + ", roomNumber=" + roomNumber + ", price=" + price + ", type=" + type
-				+ ", description=" + description + ", roomCapacity=" + roomCapacity + ", booking=" + booking
-				+ ", image=" + image + ", typeRoom=" + typeRoom + "]";
-	}
-	
+
 }

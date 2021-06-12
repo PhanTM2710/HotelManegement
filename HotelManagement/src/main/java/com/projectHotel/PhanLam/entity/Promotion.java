@@ -1,6 +1,5 @@
 package com.projectHotel.PhanLam.entity;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -8,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Promotion {
@@ -18,8 +16,9 @@ public class Promotion {
 	private int id;
 	private String code;
 	private String description;
-	private Date effectiveDate;
-	private Date expirationDate;
+	private float discount;
+	private String effectiveDate;
+	private String expirationDate;
 	
 	@OneToMany(mappedBy = "promotion")
 	private List<Booking> booking;
@@ -49,16 +48,16 @@ public class Promotion {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getEffectiveDate() {
+	public String getEffectiveDate() {
 		return effectiveDate;
 	}
-	public void setEffectiveDate(Date effectiveDate) {
+	public void setEffectiveDate(String effectiveDate) {
 		this.effectiveDate = effectiveDate;
 	}
-	public Date getExpirationDate() {
+	public String getExpirationDate() {
 		return expirationDate;
 	}
-	public void setExpirationDate(Date expirationDate) {
+	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
 	public float getDiscount() {
@@ -67,5 +66,5 @@ public class Promotion {
 	public void setDiscount(float discount) {
 		this.discount = discount;
 	}
-	private float discount;
+	
 }

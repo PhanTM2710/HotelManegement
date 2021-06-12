@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Service {
@@ -14,25 +14,23 @@ public class Service {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
 	private String name;
 	private double price;
 	private String desciption;
 	private String unit;
 	private String image;
 	
-	@ManyToMany(mappedBy = "service")
-	private List<Booking> booking;
+	@OneToMany(mappedBy = "service")
+	private List<ServiceDetail> serviceDetail;
 	
-	
-	public List<Booking> getBooking() {
-		return booking;
-	}
-	public void setBooking(List<Booking> booking) {
-		this.booking = booking;
-	}
 	public String getDesciption() {
 		return desciption;
+	}
+	public List<ServiceDetail> getServiceDetail() {
+		return serviceDetail;
+	}
+	public void setServiceDetail(List<ServiceDetail> serviceDetail) {
+		this.serviceDetail = serviceDetail;
 	}
 	public void setDesciption(String desciption) {
 		this.desciption = desciption;
@@ -68,6 +66,5 @@ public class Service {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-
 	
 }
