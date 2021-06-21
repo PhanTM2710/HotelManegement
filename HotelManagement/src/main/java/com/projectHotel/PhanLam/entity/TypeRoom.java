@@ -8,17 +8,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class TypeRoom {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int typeRoomId;
+	private int id;
 	private String type;
 	private String size;
 	private String image;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="typeRoom")
 	private List<Room> room;	
 	
@@ -28,18 +31,14 @@ public class TypeRoom {
 	public void setRoom(List<Room> room) {
 		this.room = room;
 	}
-	public int getTypeRoomId() {
-		return typeRoomId;
-	}
+
 	public String getImage() {
 		return image;
 	}
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public void setTypeRoomId(int typeRoomId) {
-		this.typeRoomId = typeRoomId;
-	}
+
 	public String getType() {
 		return type;
 	}
@@ -48,6 +47,12 @@ public class TypeRoom {
 	}
 	public String getSize() {
 		return size;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	public void setSize(String size) {
 		this.size = size;

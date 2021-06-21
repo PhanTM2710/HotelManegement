@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link rel="stylesheet" href="mysheet.css">
+<style type="text/css">
+	.btn-outline-secondary {
+		background-color: white;
+	};
+</style>
+<script type="text/javascript">$('.carousel').carousel();</script>
+<title>Show Room</title>
+</head>
+<body>
+	<div>
+		<div style="width: 100%; height: 250px;" class="header"></div>
+		<div class="sticky-top" style="background-color: green; height: 70px;">
+			<div style="width: 41%;height: 100%; float: right; ">
+				<div style="display: flex; height: 38px; margin-right: 10px;">
+					<form id="searchForm" th:action="@{/showroom}"  method="get">
+					<table>
+						<tr>
+							<td><p style="color: white; margin-bottom: 0px;">Check-in</p></td>
+							<td colspan="2"><p style="color: white; margin-bottom: 0px;">Check-out</p></td>
+						</tr>
+						<tr>
+							<td>
+								<input readonly="readonly" placeholder="Start Date" id="startDate" name="startDateStr" th:value="${startDateStr}" width="220" height="20px" />
+							</td>
+							<td>
+								<input readonly="readonly" placeholder="End Date" id="endDate" name="endDateStr" th:value="${endDateStr}" width="220" height="20px" />
+							</td>
+							<td><input name="id" value="0" type="hidden" ></input></td>
+							<td><button type="submit" class="btn btn-primary" style="margin-left: 5px;">Search</button></td>
+						</tr>
+						<tr>
+							<td>
+								<div id="errStartDate" class="invalid-tooltip">
+						             <span id="errMsgStartDate"></span>
+						        </div>
+							</td>
+							<td>
+								<div id="errEndDate" class="invalid-tooltip">
+						             <span id="errMsgEndDate"></span>
+						        </div>
+							</td>
+							<td >
+								<!-- Blank td -->
+							</td>
+						</tr>
+					</table>
+					</form>
+				</div>			
+			</div>
+		</div>
+		<div class="divContainRoom">
+			<div  style="display: flex;">
+				<div class="listRoom">
+					<div class="room" th:each="room : ${listRoomall}">
+						<div class="imageRoom" >
+							<div th:id="'carouselExampleControls'+${room.id}" class="carousel slide" data-ride="carousel" >
+							  <div class="carousel-inner ">
+							  	<th:block th:each="image : ${room.image}">
+								  	<div th:if="${room.image.indexOf(image) == 0}" class="carousel-item active">
+										<img class="d-block w-100" th:src="@{'../image/'+${image.img}}" style="width: 100%; height: 240px; margin-top: 5px; margin-left: 5px;">
+								    </div>
+								    <div th:unless="${room.image.indexOf(image) == 0}" class="carousel-item">
+										<img class="d-block w-100" th:src="@{'../image/'+${image.img}}" style="width: 100%; height: 240px;margin-top: 5px;margin-left: 5px;">
+								    </div>
+							    </th:block>
+							  </div>
+							  <a class="carousel-control-prev" th:href="'#carouselExampleControls'+${room.id}" role="button" data-slide="prev">
+							    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							    <span class="sr-only">Previous</span>
+							  </a>
+							  <a class="carousel-control-next" th:href="'#carouselExampleControls'+${room.id}" role="button" data-slide="next">
+							    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+							    <span class="sr-only">Next</span>
+							  </a>
+							</div>
+							</th:block>					
+						</div>
+						<div  class="ContentRoom">
+							<div >
+								<span style="font-size: 16px; margin-left: 10px;">Room type: </span>
+								<span style="font-size: 18px;" th:text="${room.type}"></span><br>
+								<span style="font-size: 16px; margin-left: 10px;">Room number: </span>
+								<span style="font-size: 20px;" th:text="${room.roomNumber}"></span><br>
+								<span style="font-size: 16px; margin-left: 10px;">Unit Price: </span>
+								<strike><span style="font-size: 20px; color: gray" th:text="${room.price + 700000}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 20px; color: gray"> VND</span></strike>
+								<span style="font-size: 20px; color: red" th:text="${room.price}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 20px; color: red"> VND <img style="width: 35px; position: absolute;" src="../image/hotPrice_gif.gif" /></span><br>
+								<span style="font-size: 16px; margin-left: 10px;">Capacity: </span>
+								<span style="font-size: 20px;" th:text="${room.roomCapacity}"></span><br>
+								<span style="font-size: 16px; margin-left: 10px;">Description: </span>
+								<span style="font-size: 20px;" th:text="${room.description}"></span>
+							</div>
+						</div>
+						<div>
+							<button th:id="'booknow'+ ${room.id}" class="btn btn-primary booknow" style="margin-left: 5px;" th:value="${room.id}" onclick="getBookingDetail(this)">BOOK NOW</button>							
+						</div>
+					</div>
+				</div>
+				<div class="TextTypeRoom">
+						<div style="height: 50px;color: green;margin-left:20px; "><h4>ROOM BOOKING</h4></div>
+						<table>
+							<tr style="margin-left: 10px;">
+								<td style="font-weight: 600;">Check-in</td>
+								<td style="font-weight: 600;">Check-out</td>
+								<td style="font-weight: 600;">Total (VND)</td>
+							</tr>
+							<tr> 
+								<td th:text="${startDateStr}"></td>
+								<td th:text="${endDateStr}"> </td>
+								<td id="total" class="price" onchange="formatMoney(this)" th:text="${total}"></td>
+							</tr>
+						</table>
+						<div class="roombooked" th:each="detailsss : ${bookingdetail}">
+							<div>
+								<h4 style="margin-left: 125px;"  th:text="${detailsss.room.typeRoom.type}"></h4>
+							</div>
+							<div style="display: flex;">
+								<div style="width: 50%;">
+									<span class="contentBooked">Type:</span><br>
+									<span class="contentBooked">Room number:</span>
+									<span class="contentBooked">Unit price:</span>
+									<span class="contentBooked">Capacity:</span>
+								</div>
+								<div >
+									<span th:text="${detailsss.room.type}"></span><br> 
+									<span  th:text="${detailsss.room.roomNumber}"></span><br>
+									<span th:text="${detailsss.room.price}" class="price" onchange="formatMoney(this);" style="margin-right: 5px;"></span><span> VND</span><br> 
+									<span th:text="${detailsss.room.roomCapacity}"></span>
+								</div>							
+							</div>
+							<div>
+								<button th:id="'remove'+ ${detailsss.room.id}" class="btn btn-primary remove"  th:value="${detailsss.room.id}" onclick="removebooking(this)">Remove</button>
+							</div>				
+						</div>
+						<div style="width: 95%; margin-top: 5px;">
+							<div style="float: right;">
+								<form th:action="@{/choseService}"  method="get">
+									<input type="hidden" th:value="${startDateStr}" name="startDateStr"/>
+									<input type="hidden" th:value="${endDateStr}" name="endDateStr"/>
+									<button   class="btn btn-primary" type="submit" >XÁC NHẬN</button>
+								</form>
+							</div>
+						</div>
+					</div>				
+			</div>		
+		</div>
+ 	</div>
+ 	
+ 	<script type="text/javascript" src="showroom.js" ></script>  
+</body>
+</html>

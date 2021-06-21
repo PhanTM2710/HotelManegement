@@ -1,0 +1,24 @@
+@charset "ISO-8859-1";
+body {
+	width: 1350px;
+	min-height: 620px;
+}
+
+.header {
+	background-image: url("https://furamavietnam.com/wp-content/uploads/2018/08/banner01.jpg?id=1433)%20!important");
+	background-size: cover;
+}
+
+.formcheckbooking{
+	width: 50%;
+    margin: auto;
+    vertical-align: middle;
+    border: 1px solid gray;
+}
+
+h4 {
+	width: 50%;
+    margin: auto;
+    padding-top: 15px;
+    padding: 22px;
+}
