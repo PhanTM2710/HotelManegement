@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Room {
 
@@ -19,17 +22,20 @@ public class Room {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String roomNumber;
-	private double price;
+	private long price;
 	private String type;
 	private String description;
 	private String roomCapacity;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "room")
 	private List<BookingDetail> bookingDetail;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "rooms", fetch = FetchType.EAGER)
 	private List<Image> image =new ArrayList<Image>();
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "typeRoom_id")
 	private TypeRoom typeRoom;
@@ -58,11 +64,11 @@ public class Room {
 		this.typeRoom = typeRoom;
 	}
 
-	public double getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 

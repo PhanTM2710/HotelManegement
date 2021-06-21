@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class TypeRoom {
@@ -19,6 +21,7 @@ public class TypeRoom {
 	private String size;
 	private String image;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy="typeRoom")
 	private List<Room> room;	
 	

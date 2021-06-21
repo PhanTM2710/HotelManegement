@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Service {
 	
@@ -15,11 +17,12 @@ public class Service {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private double price;
+	private long price;
 	private String desciption;
 	private String unit;
 	private String image;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "service")
 	private List<ServiceDetail> serviceDetail;
 	
@@ -60,10 +63,10 @@ public class Service {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public double getPrice() {
+	public long getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 	

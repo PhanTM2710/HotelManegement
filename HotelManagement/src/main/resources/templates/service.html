@@ -46,10 +46,10 @@
 			<div class="divtyperoom" >
 				<div class="divRoom" th:each="service : ${listservice}">
 					<div class="divimage">
-						<div class="book">
-							<a th:href="@{showroom/(id=${service.id})}"
-								class="btn btn-primary">Book now</a>
-						</div>
+<!-- 						<div class="book"> -->
+<!-- 							<a th:href="@{showroom/(id=${service.id})}" -->
+<!-- 								class="btn btn-primary">Book now</a> -->
+<!-- 						</div> -->
 						<img class="divimage--img" style="width: 369px; height: 200px;" alt="anh"
 							th:src="@{'../image/'+${service.image}}">															
 					</div>					

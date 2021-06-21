@@ -7,16 +7,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class ServiceDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "service_id")
 	private Service service;
@@ -43,6 +47,16 @@ public class ServiceDetail {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public ServiceDetail(Booking booking, Service service) {
+
+		this.booking = booking;
+		this.service = service;
+	}
+
+	public ServiceDetail() {
+
 	}
 
 	

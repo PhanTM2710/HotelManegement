@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Promotion {
 	
@@ -15,11 +17,12 @@ public class Promotion {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String code;
-	private String description;
-	private float discount;
+	private int promotionTime;
+	private long discount;
 	private String effectiveDate;
 	private String expirationDate;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "promotion")
 	private List<Booking> booking;
 	
@@ -42,12 +45,7 @@ public class Promotion {
 	public void setCode(String code) {
 		this.code = code;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
+
 	public String getEffectiveDate() {
 		return effectiveDate;
 	}
@@ -60,11 +58,17 @@ public class Promotion {
 	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
-	public float getDiscount() {
+	public long getDiscount() {
 		return discount;
 	}
-	public void setDiscount(float discount) {
+	public void setDiscount(long discount) {
 		this.discount = discount;
+	}
+	public int getPromotionTime() {
+		return promotionTime;
+	}
+	public void setPromotionTime(int promotionTime) {
+		this.promotionTime = promotionTime;
 	}
 	
 }

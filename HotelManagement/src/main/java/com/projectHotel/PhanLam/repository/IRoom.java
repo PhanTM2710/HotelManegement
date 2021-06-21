@@ -2,7 +2,6 @@ package com.projectHotel.PhanLam.repository;
 
 import java.util.List;
 
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -18,6 +17,6 @@ public interface IRoom extends JpaRepository<Room, Integer> {
 			+ "WHERE bd.room_id IS NULL "
 			+ "OR b.start_date IS NULL "
 			+ "OR b.end_date IS NULL "
-			+ "OR b.end_date < ?1 OR b.start_date > ?2", nativeQuery = true)
+			+ "OR b.end_date < ?1 AND b.start_date > ?2", nativeQuery = true)
 	List<Room> filterRoomAvailable(String startDate, String endDate);
 }

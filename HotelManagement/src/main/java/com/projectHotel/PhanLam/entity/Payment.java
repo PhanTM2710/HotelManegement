@@ -6,6 +6,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Payment {
@@ -13,14 +16,16 @@ public class Payment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String date;
-	private double amount;
+	private long amount;
 	private String desciption;
 
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "card_id")
 	private CreditCard card;
 	
-	@ManyToOne
+	@JsonBackReference
+	@OneToOne
 	@JoinColumn(name = "booking_id")
 	private Booking booking;
 
@@ -55,11 +60,11 @@ public class Payment {
 	public void setBooking(Booking booking) {
 		this.booking = booking;
 	}
-	public double getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 
@@ -70,4 +75,38 @@ public class Payment {
 	public void setDesciption(String desciption) {
 		this.desciption = desciption;
 	}
+
+	public Payment(String date, long amount, String desciption, CreditCard card, Booking booking) {
+		this.date = date;
+		this.amount = amount;
+		this.desciption = desciption;
+		this.card = card;
+		this.booking = booking;
+	}
+
+	public Payment(String date, long amount, CreditCard card, Booking booking) {
+		this.date = date;
+		this.amount = amount;
+		this.card = card;
+		this.booking = booking;
+	}
+
+	public Payment() {
+
+	}
+
+	public Payment(String date, long amount, String desciption, CreditCard card) {
+		this.date = date;
+		this.amount = amount;
+		this.desciption = desciption;
+		this.card = card;
+	}
+
+	public Payment(String date, long amount, CreditCard card) {
+		this.date = date;
+		this.amount = amount;
+		this.card = card;
+	}
+
+		
 }

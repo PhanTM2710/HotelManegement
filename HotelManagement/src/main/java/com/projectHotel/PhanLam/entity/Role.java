@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Role {
 	@Id
@@ -14,6 +16,7 @@ public class Role {
 	private int id;
 	private String role;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "account_id")
 	private Account account;

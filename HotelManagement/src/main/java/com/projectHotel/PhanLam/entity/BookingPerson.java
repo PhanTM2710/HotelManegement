@@ -3,18 +3,16 @@ package com.projectHotel.PhanLam.entity;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class BookingPerson  extends Person{
 	private String email;
 	
-	@OneToOne
-	@JoinColumn(name = "card_id")
-	private CreditCard card;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "person")
 	private List<Booking> booking; 
 
@@ -34,11 +32,45 @@ public class BookingPerson  extends Person{
 	public void setEmail(String email) {
 		this.email = email;
 	}	
-	public CreditCard getCard() {
-		return card;
+
+	public BookingPerson() {
+		super();		
 	}
 
-	public void setCard(CreditCard card) {
-		this.card = card;
+
+	public BookingPerson(String name, String phone,String email) {
+		super(name, phone);
+		this.email = email;
 	}
+
+	public BookingPerson(String name, String phone, String address, String birthday, String email) {
+		super(name, phone, address, birthday);
+		this.email = email;
+	}
+
+	public BookingPerson(String email, List<Booking> booking) {
+		super();
+		this.email = email;
+		this.booking = booking;
+	}
+
+	public BookingPerson(String name, String phone, String address, String birthday, String email,
+			List<Booking> booking) {
+		super(name, phone, address, birthday);
+		this.email = email;
+		this.booking = booking;
+	}
+
+	public BookingPerson(String name, String phone, String email, List<Booking> booking) {
+		super(name, phone);
+		this.email = email;
+		this.booking = booking;
+	}
+
+	public BookingPerson(String name, String phone, String birthday, String email, List<Booking> booking) {
+		super(name, phone, birthday);
+		this.email = email;
+		this.booking = booking;
+	}
+	
 }

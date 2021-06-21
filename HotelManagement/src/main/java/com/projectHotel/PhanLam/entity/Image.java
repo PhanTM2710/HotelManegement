@@ -7,13 +7,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String img;
-		
+	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="room_id")
 	private Room rooms;	

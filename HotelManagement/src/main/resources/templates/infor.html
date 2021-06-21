@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="mysheet.css">
+
+<title>Information Customer</title>
+</head>
+<body style="width: 1349px;">
+	<div>
+		<div style="width: 100%; height: 250px;" class="header"></div>
+		<div class="sticky-top">
+			<nav style="width: 100%; height: 50px; background-color: green;">
+
+			</nav>
+		</div>
+		<div style="background-color: #E0F8E0; display: flex; padding-bottom: 20px;">
+			<div class="formInput" th:id="forminput">
+				<div style="margin-left: 15px;"><h3>YOU INFORMATION</h3></div>
+					<div style="margin: auto;width: 90%;">
+						<table style="width: 100%;">
+							<tr class="form-group">
+								<td><label for="name">Full name(*):</label> <input
+									type="text" class="form-control" id="name" name="name"
+									placeholder="please input fullname"></td>
+								<td><label for="phone">Phone:</label> <input type="number"
+									class="form-control" id="phone" name="phone"
+									placeholder="input phone number"></td>
+							</tr>
+							<tr class="form-group">
+								<td>
+									<div id="errname" class="invalid-tooltip">
+							             <span id="errMsgname"></span>
+							        </div>
+								</td>
+								<td>
+									<div id="errphone" class="invalid-tooltip">
+							             <span id="errMsgphone"></span>
+							        </div>
+								</td>
+							</tr>
+							<tr class="form-group">
+								<td><label for="address">Address:</label> <input
+									type="text" class="form-control" id="address" name="address"
+									 placeholder="Address"></td>
+								<td><label for="email">Email address:</label> <input
+									type="email" class="form-control" id="email"  name="email"
+									aria-describedby="emailHelp" placeholder="Enter email"></td>
+							</tr>
+							<tr class="form-group">
+								<td>
+									<div id="erraddress" class="invalid-tooltip">
+										<span id="errMsgaddress"></span>
+									</div>
+								</td>
+								<td>
+									<div id="erremail" class="invalid-tooltip">
+										<span id="errMsgemail"></span>
+									</div>
+								</td>
+							</tr>
+							<tr class="form-group">
+									<td><label for="birthday">Birthday:</label> <input
+										type="date" class="form-control" id="birthday"
+										name="birthday"></td>
+							</tr>
+							<tr class="form-group">
+								<td>
+									<div id="errbirthday" class="invalid-tooltip">
+										<span id="errMsgbirthday"></span>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<div style="margin-left: 15px;  margin-top: 20px;">
+							<h3>ROOM BOOKING</h3>
+						</div>
+						<div style="margin-bottom: 20px; margin-left: 30px;">
+							<table style="width: 50%;">
+								<tr style="margin-left: 10px;">
+									<td style="font-weight: 600;">Check-in</td>
+									<td style="font-weight: 600;">Check-out</td>
+								</tr>
+								<tr>
+									<td th:text="${startdate}"></td>
+									<td th:text="${enddate}"></td>
+								</tr>
+							</table>
+						</div>
+						<div class="roombook">
+							<div class="roombooki" th:each="detail : ${bookingDetail}">
+								<div>
+									<h4 style="margin:auto;"
+										th:text="${detail.room.typeRoom.type}"></h4>
+								</div>
+								<div style="display: flex;">
+									<div style="width: 50%;">
+										<span class="contentBooked">Type:</span><br> <span
+											class="contentBooked">Room number:</span><br> <span
+											class="contentBooked">Unit price:</span><br> <span
+											class="contentBooked">Capacity:</span>
+									</div>
+									<div>
+										<span th:text="${detail.room.type}"></span><br> <span
+											th:text="${detail.room.roomNumber}"></span><br> <span
+											th:text="${detail.room.price}" class="price"
+											onchange="formatMoney(this);" style="margin-right: 5px;"></span><span>
+											VND</span><br> <span th:text="${detail.room.roomCapacity}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div>
+						<div style="margin-left: 15px;  margin-top: 20px; margin-bottom: 20px;">
+							<h3>SERVICE</h3>
+						</div>
+						<div class="roombook">
+							<div class="roombooki" th:each="services : ${listservice}">
+								<div>
+									<h4 style="margin:auto;"
+										th:text="${services.service.name}"></h4>
+								</div>
+								<div style="display: flex;">
+									<div style="width: 50%;">
+										<span class="contentBooked">Unit:</span><br>
+										<span class="contentBooked">Price:</span>
+										<span class="contentBooked">Description:</span>
+									</div>
+									<div >
+										<span th:text="${services.service.unit}"></span><br> 
+										<span th:text="${services.service.price}" class="price" onchange="formatMoney(this);" style="margin-right: 5px;"></span><span> VND</span><br> 
+										<span th:text="${services.service.desciption}"></span>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div style="width: 37%;padding-top: 15px;">
+				<div style="padding-left: 15px;"><h5>DISCOUNT CODE:</h5></div>
+				<div id="promotionDiv" class="checkPromotion">
+					<div>
+						<input th:id="code" type="text" maxlength="20" name="code" placeholder="Input Code promotion">											
+					</div>
+					<div>
+						<button th:id="check" class="btn btn-primary" style="margin-left: 5px;" onclick="getpromotion(this)" disabled >APPLY</button>											
+					</div>
+				</div>
+				<div style="padding-left: 35px; margin-bottom: 20px;" th:id="show">
+					<span style="margin-right: 30px;">Before promotion:</span ><span th:id="beforeDiscount" class= "price" th:text="${amountRS}" onchange="formatMoney(this)" ></span><span style="margin-left: 5px;">VND</span><br>
+					<span style="margin-right: 30px;">Discount:</span><span th:id="discount" th:text="0"></span><span style="margin-left: 5px;">%</span><br>
+					<input type="hidden" th:value="${amountRS}" th:id="hiden">
+					<span style="margin-right: 30px;">After promotion:</span ><span th:id="afterDiscount" class= "afterprice" th:text="${amountRS}" onchange="afterformatMoney(this)" style="color: red;"></span><span style="margin-left: 5px;">VND</span><br>
+					<input type="hidden" th:value="${amountRS}" th:id="hidenafter">
+				</div>
+				<div style="padding-left: 15px;"><h5>PAYMENT:</h5></div>
+				<div class="checkPromotion" >
+					<div>
+						<input th:id="cardNumber" type="text" maxlength="20" name="cardNumber" placeholder="Input number creditcard">
+						<div id="success" class="invalid-tooltip">
+							<span id="Msgsucces"></span>
+						</div>
+					</div>
+					<div>						
+						<button th:id="checkcard" class="btn btn-primary" style="margin-left: 5px;" onclick="getcard(this)" disabled >CHECK</button>											
+						<div >
+				             <span>
+				             <!-- Blank td -->
+				             </span>
+						</div>
+					</div>
+				</div>
+				<div style="padding-left: 35px; margin-bottom: 20px;">
+					<table>
+						<tr class="form-group">
+							<td >
+								<span style="margin-right: 30px;">Amount Card:</span ><span th:id="moneycard" class="moneycard" th:text="0" onchange="formatMoneycard(this)" ></span><span style="margin-left: 5px;">VND</span><br>							 
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td><label for="description">Description:</label><textarea  cols="4" rows="5"
+								 class="form-control" th:id="description" name="description" ></textarea>
+							</td>
+						</tr>
+					</table>
+<!-- 						<input type="hidden" name="money" th:id="money" >						 -->
+						<input type="hidden" name="idpro" th:id="idpro" >
+						<input type="hidden" name="id" th:id="id">						
+					<div style="float: right; padding:20px;">
+						<button th:id="addpayment" class="btn btn-primary" style="margin-left: 5px;" onclick="addpayment()" >Confirm</button>
+					</div>				
+				</div>						
+			</div>
+		</div>
+	</div>
+	
+	<form th:id="visitSumary" th:action="@{/summary}" method="post" style="display: none"></form>
+	<script type="text/javascript" src="info.js" ></script>
+</body>
+</html>

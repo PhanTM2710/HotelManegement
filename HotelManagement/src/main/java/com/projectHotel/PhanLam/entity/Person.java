@@ -47,4 +47,25 @@ public class Person {
 		this.address = address;
 	}
 	
+	public Person(String name, String phone) {
+		this.name = name;
+		this.phone = phone;
+	}
+	public Person() {
+		super();
+	}
+
+	public Person(String name, String phone, String address, String birthday) {
+		this.name = name;
+		this.phone = phone;
+		this.address = address;
+		this.birthday = birthday;
+	}
+	
+	public Person(String name, String phone, String birthday) {
+		this.name = name;
+		this.phone = phone;
+		this.birthday = birthday;
+	}
+			
 }

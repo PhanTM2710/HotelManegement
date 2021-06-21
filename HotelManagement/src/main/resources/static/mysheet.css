@@ -88,13 +88,25 @@ vertical-align: middle!important;
 }
 
 .TextTypeRoom{
-	width: 30%;
+	width: 27%;
 	height: auto;
+	background-color: #eef5f9;
+	border: 2px solid gray;
+	margin-top: 15px;
+
 }
+
+.TextTypeRoom >table{
+	width: 95%;
+	margin: auto;
+	margin-left: 30px;
+}
+
 
 .listRoom{
 	width: 70%;
 	height: auto;
+	margin-top: 15px;
 }
 
 .room{
@@ -113,5 +125,102 @@ vertical-align: middle!important;
 
 .ContentRoom{
 	margin-left:20px;
-	width: 40%;	
+	width: 42%;	
+}
+.booknow {
+	width: 120px;
+	margin-bottom: 5px;
+	margin-top: 200px;
+	align-items: center;
+	margin-right: 5px;
+	margin-left: 20PX;
+}
+
+.roombooked{
+	width: 95%;
+	margin: auto;
+	border: 1px solid black;
+	margin-top: 5px;
+	height: auto;
+}
+
+.contentBooked{
+	font-weight: 600;
+	margin-left: 5px;
+	margin-right: 35px;
+}
+.remove{
+	padding-top: 0px;
+    padding-right: 6px;
+    padding-bottom: 0px;
+    padding-left: 6px;
+	margin-left: 267px;
+	margin-bottom: 5px;
+	background-color: red;
+	color: white;
+}
+
+.formInput{
+	width: 67%;
+	padding-top:20px;
+	margin-left:20px;
+	border-right: 1px solid gray;
+}
+
+.inputInfor{
+	width: 95%;
+	margin-top: 0px;
+    padding-left: 25px;
+    padding-bottom: 20px;
+
+}
+.inputInfor >table {
+	width: 100%;
+	padding-top: 15px;
+	
+}
+
+label{
+	margin-top: 15px;
+	margin-bottom: 0px;
+}
+.form-control{
+	width: 320px;
+}
+.checkPromotion{
+	margin-left: 40px;
+    display: flex;
+    margin-bottom: 20px;
+}
+.checkPromotion  input {
+	width: 300px;
+	height: 38px;
+}
+.tableinor {
+	width:100%;
+	margin: auto;
+}
+
+.spanText{
+	margin-right: 20px;
+	font-size: 18px;
+}
+.spanValue{
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.roombook{
+	display: flex;
+	flex-wrap: wrap;
+	width: 92%;
+	margin: auto;
+}
+
+.roombooki{
+	width: 45%;
+	padding: 15px; 
+	margin-right:20px;
+	border: 1px solid gray;
+	margin-bottom: 20px;
 }

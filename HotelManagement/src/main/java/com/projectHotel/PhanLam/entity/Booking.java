@@ -1,5 +1,6 @@
 package com.projectHotel.PhanLam.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,29 +8,38 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Booking {
+public class Booking implements Serializable{
 	@Id
 	private String id;	
 	private String startDate;
 	private String endDate;
-	private double amount;
+	private long amount;
 	
-	@OneToMany(mappedBy = "booking")
-	private List<Payment> payment;
+	@JsonManagedReference
+	@OneToOne(mappedBy = "booking")
+	private Payment payment;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "booking")
 	private List<BookingDetail> bookingDetail;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "bookingperson_id")
 	private BookingPerson person;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "promotion_id")
 	private Promotion promotion;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "booking")
 	private List<ServiceDetail> serviceDetails;
 			
@@ -65,11 +75,11 @@ public class Booking {
 		this.endDate = endDate;
 	}
 
-	public double getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 
@@ -96,12 +106,14 @@ public class Booking {
 	public void setPromotion(Promotion promotion) {
 		this.promotion = promotion;
 	}
-	public List<Payment> getPayment() {
+
+	public Payment getPayment() {
 		return payment;
 	}
 
-	public void setPayment(List<Payment> payment) {
+	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
+
 	
 }

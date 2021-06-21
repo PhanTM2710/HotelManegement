@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Account {
 	@Id
@@ -18,6 +20,7 @@ public class Account {
 	private String userName;
 	private String password;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "account")
 	private List<Role> role;
 
