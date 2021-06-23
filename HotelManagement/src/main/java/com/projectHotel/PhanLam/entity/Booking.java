@@ -1,6 +1,5 @@
 package com.projectHotel.PhanLam.entity;
 
-import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -14,13 +13,13 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-public class Booking implements Serializable{
+public class Booking {
 	@Id
 	private String id;	
 	private String startDate;
 	private String endDate;
 	private long amount;
-	
+	private boolean isDelete;
 	@JsonManagedReference
 	@OneToOne(mappedBy = "booking")
 	private Payment payment;
@@ -115,5 +114,12 @@ public class Booking implements Serializable{
 		this.payment = payment;
 	}
 
-	
+	public boolean isisDelete() {
+		return isDelete;
+	}
+
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
 }

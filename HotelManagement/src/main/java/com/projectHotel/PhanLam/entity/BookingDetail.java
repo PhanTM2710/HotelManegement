@@ -19,6 +19,7 @@ public class BookingDetail {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	private boolean isDelete;
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "booking_id")
@@ -85,13 +86,35 @@ public class BookingDetail {
 		this.booking = booking;
 		this.room = room;
 	}
-	
+		
+	public BookingDetail(boolean isDelete, Booking booking, Room room) {
+		this.isDelete = isDelete;
+		this.booking = booking;
+		this.room = room;
+	}
+
+	public boolean isDelete() {
+		return isDelete;
+	}
+
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
 	@Override
 	public String toString() {
 		return "BookingDetail [id=" + id + ", booking=" + booking + ", room=" + room + ", customers=" + customers
 				+ ", getBooking()=" + getBooking() + ", getCustomers()=" + getCustomers() + ", getId()=" + getId()
 				+ ", getRoom()=" + getRoom() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
 				+ ", toString()=" + super.toString() + "]";
+	}
+
+	public boolean isisDelete() {
+		return isDelete;
+	}
+
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 }

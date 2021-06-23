@@ -18,10 +18,10 @@
    		    function(service, status){
    		    	if (status == "success") {
    		    		if (service.id != undefined) {
-   	   		    		alert('Đã thêm phòng '+service.name+' vào danh sách!');
+   	   		    		alert('Đã thêm  '+service.name+' vào danh sách!');
    	   		    		location.reload();
    		    		} else {
-   		    			alert('Phòng đã được chọn. Vui lòng chọn phòng khác!');
+   		    			alert('Dịch vụ đã được chọn. Vui lòng chọn dịch vụ khác!');
    		    		}
    		    	} else {
    		    		alert('Something is wroong!');
@@ -42,14 +42,14 @@
    		    	if(result){
    		    		if (status == "success") {
    	   		    		if (service.id != undefined) {
-   	   	   	   		    		alert('Đã xóa phòng '+service.name+' ra khỏi danh sách!');
+   	   	   	   		    		alert('Đã xóa '+service.name+' ra khỏi danh sách!');
    	   	   	   		    		location.reload();
 
    	   		    		} else {
    	   		    			alert('Phòng đã được chọn. Vui lòng chọn phòng khác!');
    	   		    		}
    	   		    	} else {
-   	   		    		alert('Something is wroong!');
+   	   		    		alert('Something is wrong!');
    	   		    	}
    	        		return true
    	        	}else{
@@ -67,3 +67,6 @@
         //Format money khi load trang
         $(".price").change();
         
+       function goBack() {
+			window.history.back();
+		}

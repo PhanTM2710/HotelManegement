@@ -18,7 +18,7 @@ public class CreditCard {
 	private String name;
 	private String cardNumber;
 	private long amount;
-	
+	private boolean idDelete;
 	@JsonManagedReference
 	@OneToMany(mappedBy = "card")
 	private List<Payment> payment;
@@ -61,6 +61,14 @@ public class CreditCard {
 	}
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
+	}
+
+	public boolean isIdDelete() {
+		return idDelete;
+	}
+
+	public void setIdDelete(boolean idDelete) {
+		this.idDelete = idDelete;
 	}
 	
 }

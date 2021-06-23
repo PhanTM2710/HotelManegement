@@ -14,7 +14,7 @@ public class Person {
 	private String phone;
 	private String address;
 	private String birthday;
-	
+	private boolean isDelete;
 	public String getBirthday() {
 		return birthday;
 	}
@@ -66,6 +66,12 @@ public class Person {
 		this.name = name;
 		this.phone = phone;
 		this.birthday = birthday;
+	}
+	public boolean isisDelete() {
+		return isDelete;
+	}
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 			
 }

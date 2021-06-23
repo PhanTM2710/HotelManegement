@@ -11,12 +11,16 @@ import com.projectHotel.PhanLam.entity.Room;
 @Repository
 public interface IRoom extends JpaRepository<Room, Integer> {
 
-	@Query(value = "SELECT r.* FROM room r "
-			+ "LEFT JOIN booking_detail bd ON r.id = bd.room_id "
-			+ "LEFT JOIN booking b ON b.id = bd.booking_id "
-			+ "WHERE bd.room_id IS NULL "
-			+ "OR b.start_date IS NULL "
-			+ "OR b.end_date IS NULL "
-			+ "OR b.end_date < ?1 AND b.start_date > ?2", nativeQuery = true)
+	@Query(value = "SELECT r.* \r\n"
+			+ "FROM room r LEFT JOIN\r\n"
+			+ "			(SELECT DISTINCT bd.room_id\r\n"
+			+ "			FROM booking b JOIN booking_detail bd  ON b.id = bd.booking_id\r\n"
+			+ "			WHERE (b.is_delete = 0) AND\r\n"
+			+ "					(\r\n"
+			+ "						b.start_date BETWEEN ?1 AND ?2 OR\r\n"
+			+ "						b.end_date BETWEEN ?1 AND ?2\r\n"
+			+ "					)) AS roomNotAvailable\r\n"
+			+ "			ON r.id = roomNotAvailable.room_id\r\n"
+			+ "WHERE r.is_delete = 0 AND roomNotAvailable.room_id IS NULL;", nativeQuery = true)
 	List<Room> filterRoomAvailable(String startDate, String endDate);
 }

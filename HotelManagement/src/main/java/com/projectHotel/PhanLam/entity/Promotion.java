@@ -21,11 +21,10 @@ public class Promotion {
 	private long discount;
 	private String effectiveDate;
 	private String expirationDate;
-	
+	private boolean isDelete;
 	@JsonManagedReference
 	@OneToMany(mappedBy = "promotion")
-	private List<Booking> booking;
-	
+	private List<Booking> booking;	
 
 	public List<Booking> getBooking() {
 		return booking;
@@ -69,6 +68,12 @@ public class Promotion {
 	}
 	public void setPromotionTime(int promotionTime) {
 		this.promotionTime = promotionTime;
+	}
+	public boolean isDelete() {
+		return isDelete;
+	}
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 }

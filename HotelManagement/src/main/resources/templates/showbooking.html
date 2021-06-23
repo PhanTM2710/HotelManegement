@@ -1,10 +1,185 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="mysheet.css">
+<title>Summary booking</title>
 </head>
-<body>
-	haha
+<body style="width: 1349px;">
+	<div>
+		<div style="width: 100%; height: 250px;" class="header"></div>
+		<div class="sticky-top">
+			<nav style="width: 100%; height: 50px; background-color: green;">
+				<div class="float-right" style="padding-right: 10px;">
+					<div class="d-flex flex-row-reverse"
+						style="padding-right: 3px; padding-top: 5px;">
+						<a class="p-2 " style="color: white;" href="#">Sign In</a> <a
+							class="p-2 " style="color: white" href="/searchbooking">Booking
+							Manage |</a> <a class="p-2 " style="color: white" href="/service">Service
+							|</a> <a class="p-2 " style="color: white" href="/room">Types
+							Room |</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div
+			style="background-color: #E0F8E0; display: flex; padding-bottom: 20px;">
+			<div class="formInput" th:id="forminput">
+				<div style="margin-left: 15px;">
+					<h3>BOOKING INFORMATION</h3>
+				</div>
+				<div style="margin: auto; width: 90%; margin-bottom: 15px;">
+					<table style="width: 100%;">
+						<tr class="form-group">
+							<td><span style="margin-right: 30px;">Booking ID:</span><span
+								style="font-weight: 600; color: red;" th:text="${booking.id}"></span></td>
+							<td><span style="margin-right: 30px;">Check in:</span><span
+								style="font-weight: 600;" th:text="${booking.startDate}"></span></td>		
+						</tr>
+						<tr class="form-group">
+							<td><span style="margin-right: 30px;">Price:</span><span
+								style="font-weight: 600; margin-right: 5px;"
+								th:text="${booking.amount}" class="price"
+								onchange="formatMoney(this)"></span><span>VND</span></td>
+							<td><span style="margin-right: 30px;">Check-out:</span><span
+								style="font-weight: 600;" th:text="${booking.endDate}"></span></td>
+						</tr>
+					</table>
+				</div>
+				<div style="margin-left: 15px;">
+					<h3>PAYMENT</h3>
+				</div>
+				<div style="margin: auto; width: 90%; margin-bottom: 15px;">
+					<table style="width: 100%;">
+						<tr class="form-group">
+							<td><span style="margin-right: 30px;">Payment Date:</span><span
+								style="font-weight: 600;" th:text="${booking.payment.date}"></span></td>
+							<td><span style="margin-right: 30px;">Paid:</span><span
+								style="font-weight: 600; margin-right: 5px;"
+								th:text="${booking.payment.amount}" class="price"
+								onchange="formatMoney(this)"></span><span>VND</span></td>
+						</tr>
+						<tr class="form-group">
+							<td><span style="margin-right: 30px;">Desciption:</span><span
+								style="font-weight: 600;"
+								th:text="${booking.payment.desciption}"></span></td>
+						</tr>
+					</table>
+				</div>
+				<div style="margin-left: 15px;">
+					<h3>YOUR INFORMATION</h3>
+				</div>
+				<div style="margin: auto; width: 90%; margin-bottom: 15px;">
+					<table style="width: 100%;">
+						<tr class="form-group">
+							<td><span style="margin-right: 30px;">Booking ID:</span><span
+								style="font-weight: 600;" th:text="${booking.person.name}"></span></td>
+							<td><span style="margin-right: 30px;">Phone number:</span><span
+								style="font-weight: 600;" th:text="${booking.person.phone}"></span></td>
+						</tr>
+						<tr class="form-group">
+							
+							<td><span style="margin-right: 30px;">Address:</span><span
+								style="font-weight: 600;" th:text="${booking.person.address}"></span></td>
+							<td><span style="margin-right: 30px;">Email:</span><span
+								style="font-weight: 600;" th:text="${booking.person.email}"></span></td>
+						</tr>
+						<tr class="form-group">
+							<td><span style="margin-right: 30px;">Birthday:</span><span
+								th:id="birthday" style="font-weight: 600;"
+								th:text="${booking.person.birthday}"></span></td>
+						</tr>
+					</table>
+				</div>
+				<div>
+					<div style="margin-left: 15px; margin-top: 20px;">
+						<h3>YOUR ROOM</h3>
+					</div>
+					<div class="roombook">
+						<div class="roombooki" th:each="detail : ${booking.bookingDetail}">
+							<div>
+								<h4 style="margin: auto;" th:text="${detail.room.typeRoom.type}"></h4>
+							</div>
+							<div style="display: flex;">
+								<div style="width: 50%;">
+									<span class="contentBooked">Type:</span><br> <span
+										class="contentBooked">Room number:</span><br> <span
+										class="contentBooked">Unit price:</span><br> <span
+										class="contentBooked">Capacity:</span>
+								</div>
+								<div>
+									<span th:text="${detail.room.type}"></span><br> <span
+										th:text="${detail.room.roomNumber}"></span><br> <span
+										th:text="${detail.room.price}" class="price"
+										onchange="formatMoney(this);" style="margin-right: 5px;"></span><span>
+										VND</span><br> <span th:text="${detail.room.roomCapacity}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div
+						style="margin-left: 15px; margin-top: 20px; margin-bottom: 20px;">
+						<h3>SERVICE</h3>
+					</div>
+					<div class="roombook">
+						<div class="roombooki"
+							th:each="services : ${booking.serviceDetails}">
+							<div>
+								<h4 style="margin: auto;" th:text="${services.service.name}"></h4>
+							</div>
+							<div style="display: flex;">
+								<div style="width: 50%;">
+									<span class="contentBooked">Unit:</span><br> <span
+										class="contentBooked">Price:</span> <span
+										class="contentBooked">Description:</span>
+								</div>
+								<div>
+									<span th:text="${services.service.unit}"></span><br> <span
+										th:text="${services.service.price}" class="price"
+										onchange="formatMoney(this);" style="margin-right: 5px;"></span><span>
+										VND</span><br> <span th:text="${services.service.desciption}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div style="float: right; padding: 20px; padding-right: 50px;">
+				
+					<form th:action="@{/cancelbooking}" method="post">
+						<input type="hidden" th:value="${booking.id}" name="id">					
+						<button th:id="cancel" class="btn btn-primary" type="submit"
+						style="width: 120px; background-color: red; " onclick="cancelBooking()">Cancel</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			if($('#birthday').text() === "NaN/NaN/NaN"){
+				$('#birthday').text(null);
+			}
+		});
+		
+		function formatMoney(target) {
+        	var money = parseInt($(target).text());
+        	$(target).text(money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        }
+        
+        //Format money khi load trang
+        $(".price").change();
+		
+        function cancelBooking() {
+        	var result = confirm('Are you sure? This action will forfeit 20% of your booking amount.');
+		}
+        
+	</script>
 </body>
 </html>

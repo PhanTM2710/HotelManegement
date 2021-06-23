@@ -1,7 +1,9 @@
 @charset "ISO-8859-1";
 body {
-	width: 1366px;
+	width: 1349px;
 	min-height: 657px;
+	margin: auto;
+	
 }
 
 .header {
@@ -161,7 +163,7 @@ vertical-align: middle!important;
 }
 
 .formInput{
-	width: 67%;
+	width: 100%;
 	padding-top:20px;
 	margin-left:20px;
 	border-right: 1px solid gray;

@@ -62,6 +62,7 @@ public class BookingController {
 				person.setAddress(address);
 				person.setEmail(email);
 				person.setBirthday(birthday);
+				person.setisDelete(false);
 				bookingSession.setPerson(person);
 				
 				if (!"".equals(idpro)) {
@@ -85,7 +86,7 @@ public class BookingController {
 				payment.setAmount(price);
 				payment.setDesciption(description);
 				payment.setCard(creditCard);
-
+				payment.setisDelete(false);
 				bookingSession.setPayment(payment);
 				return ResponseEntity.ok(payment);				
 			}else {			
@@ -184,15 +185,19 @@ public class BookingController {
 	}
 	
 	@PostMapping(value = "/checkCodeBooking")
-	public ResponseEntity<?> checCodeBooking(String id) throws ParseException{
+	public ResponseEntity<?>  checCodeBooking(String id) throws ParseException{
 		Optional<Booking> bookings = booking.findById(id);
-
-		if (bookings.isPresent()) {
-			System.out.println("co boking================================");
-			return ResponseEntity.ok(bookings);
+		if (!bookings.isEmpty()) {
+			if(bookings.get().isisDelete()==false) {
+				System.out.println("co boking================================");
+				return ResponseEntity.ok(bookings);
+			} else {
+				System.out.println("=========================== boking================================");
+				return ResponseEntity.ok("");
+			}
 		} else {
 			System.out.println("=========================== boking================================");
-			return ResponseEntity.badRequest().body(bookings);
+			return ResponseEntity.ok("");
 		}
 	}
 }

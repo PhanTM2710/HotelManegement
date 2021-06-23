@@ -59,7 +59,6 @@
 	<form th:id="visitbooking" th:action="@{/showbooking}" method="post" style="display: none">
 		<input th:id="id" name='id'>
 	</form>
-<!-- 	<SCRIPT TYPE="TEXT/JAVASCRIPT" SRC="CHECKSEARCH.JS" ></SCRIPT> -->
 	<script type="text/javascript">
 	
 	
@@ -67,14 +66,18 @@
 		var code = $('#code').val();
 		$.post("checkCodeBooking", {
 			id : code
-		}, function(booking, status) {
+		}, function(bookings, status) {			
 			if (status == "success") {
-				alert('Code exist')
-				$("#id").val(booking.id);
-				$("#visitbooking").submit();						
+				if (bookings.id != undefined) {
+					$("#id").val(bookings.id);
+					$("#visitbooking").submit();	
+				} else {
+					alert('Not found');
+					$("#errMsgcode").text( "Not found");
+					$('#errcode').css({"display": "table-caption", "position": "relative", "width": "305px","background-color":"red","font-size":"16px"});						
+				}	
 			} else {
-				$("#errMsgcode").text( "Not found");
-				$('#errcode').css({"display": "table-caption", "position": "relative", "width": "181px","background-color":"red","font-size":"16px"});
+				alert("Something is wroong!");
 			}
 		})
 	}</script>

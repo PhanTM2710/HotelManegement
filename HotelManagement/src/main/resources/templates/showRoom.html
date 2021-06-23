@@ -40,7 +40,13 @@
 								<input readonly="readonly" placeholder="End Date" id="endDate" name="endDateStr" th:value="${endDateStr}" width="220" height="20px" />
 							</td>
 							<td><input name="id" value="0" type="hidden" ></input></td>
-							<td><button type="submit" class="btn btn-primary" style="margin-left: 5px;">Search</button></td>
+							<th:block th:if="${bookingdetail.size() == 0}">
+								<td><button type="submit" class="btn btn-primary" style="margin-left: 5px;">Search</button></td>				
+							</th:block>
+							<th:block th:unless="${bookingdetail.size() == 0}">
+								<td><button type="button" class="btn btn-primary" style="margin-left: 5px;" disabled>Search</button></td>				
+							</th:block>
+							
 						</tr>
 						<tr>
 							<td>
@@ -91,17 +97,17 @@
 						</div>
 						<div  class="ContentRoom">
 							<div >
-								<span style="font-size: 16px; margin-left: 10px;">Room type: </span>
+								<span style="font-size: 16px; font-weight: 600;">Room type: </span>
 								<span style="font-size: 18px;" th:text="${room.type}"></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Room number: </span>
-								<span style="font-size: 20px;" th:text="${room.roomNumber}"></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Unit Price: </span>
-								<strike><span style="font-size: 20px; color: gray" th:text="${room.price + 700000}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 20px; color: gray"> VND</span></strike>
-								<span style="font-size: 20px; color: red" th:text="${room.price}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 20px; color: red"> VND <img style="width: 35px; position: absolute;" src="../image/hotPrice_gif.gif" /></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Capacity: </span>
-								<span style="font-size: 20px;" th:text="${room.roomCapacity}"></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Description: </span>
-								<span style="font-size: 20px;" th:text="${room.description}"></span>
+								<span style="font-size: 16px; font-weight: 600;">Room number: </span>
+								<span style="font-size: 18px;" th:text="${room.roomNumber}"></span><br>
+								<span style="font-size: 16px;font-weight: 600;">Unit Price: </span>
+								<strike><span style="font-size: 18px; color: gray" th:text="${room.price + 700000}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 18px; color: gray"> VND</span></strike>
+								<span style="font-size: 18px; color: red" th:text="${room.price}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 18px; color: red"> VND <img style="width: 35px; position: absolute;" src="../image/hotPrice_gif.gif" /></span><br>
+								<span style="font-size: 16px; font-weight: 600;">Capacity: </span>
+								<span style="font-size: 18px;" th:text="${room.roomCapacity}"></span><br>
+								<span style="font-size: 16px; font-weight: 600;">Description: </span>
+								<span style="font-size: 18px;" th:text="${room.description}"></span>
 							</div>
 						</div>
 						<div>
@@ -110,12 +116,12 @@
 					</div>
 				</div>
 				<div class="TextTypeRoom">
-						<div style="height: 50px;color: green;margin-left:20px; "><h4>ROOM BOOKING</h4></div>
+						<div style="height: 50px;color: green;margin-left:20px; "><h4>YOUR ROOMS</h4></div>
 						<table>
 							<tr style="margin-left: 10px;">
-								<td style="font-weight: 600;">Check-in</td>
-								<td style="font-weight: 600;">Check-out</td>
-								<td style="font-weight: 600;">Total (VND)</td>
+								<td style="font-weight: 600;">CHECK-IN</td>
+								<td style="font-weight: 600;">CHECK-OUT</td>
+								<td style="font-weight: 600;">TOTAL (VND)</td>
 							</tr>
 							<tr> 
 								<td th:text="${startDateStr}"></td>
@@ -145,12 +151,15 @@
 								<button th:id="'remove'+ ${detailsss.room.id}" class="btn btn-primary remove"  th:value="${detailsss.room.id}" onclick="removebooking(this)">Remove</button>
 							</div>				
 						</div>
-						<div style="width: 95%; margin-top: 5px;">
-							<div style="float: right;">
+						<div style="width: 30%; margin-top: 15px;display: flex; float: right;">
+<!-- 							<div><button style="margin-right: 15px;"  class="btn btn-primary" onclick="goBack()">Go Back</button></div> -->
+							<div >
 								<form th:action="@{/choseService}"  method="get">
 									<input type="hidden" th:value="${startDateStr}" name="startDateStr"/>
 									<input type="hidden" th:value="${endDateStr}" name="endDateStr"/>
-									<button   class="btn btn-primary" type="submit" >XÁC NHẬN</button>
+									<th:block th:if="${bookingdetail.size() != 0}">
+										<button th:id="buttonNext" style="width: 100px;" class="btn btn-primary" type="submit" >NEXT </button>				
+									</th:block>
 								</form>
 							</div>
 						</div>

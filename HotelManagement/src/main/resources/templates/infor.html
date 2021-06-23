@@ -20,7 +20,7 @@
 		</div>
 		<div style="background-color: #E0F8E0; display: flex; padding-bottom: 20px;">
 			<div class="formInput" th:id="forminput">
-				<div style="margin-left: 15px;"><h3>YOU INFORMATION</h3></div>
+				<div style="margin-left: 15px;"><h3>YOUR INFORMATION</h3></div>
 					<div style="margin: auto;width: 90%;">
 						<table style="width: 100%;">
 							<tr class="form-group">
@@ -79,7 +79,7 @@
 					</div>
 					<div>
 						<div style="margin-left: 15px;  margin-top: 20px;">
-							<h3>ROOM BOOKING</h3>
+							<h3>YOUR ROOMS</h3>
 						</div>
 						<div style="margin-bottom: 20px; margin-left: 30px;">
 							<table style="width: 50%;">
@@ -119,7 +119,7 @@
 					</div>
 					<div>
 						<div style="margin-left: 15px;  margin-top: 20px; margin-bottom: 20px;">
-							<h3>SERVICE</h3>
+							<h3>YOUR SERVICES</h3>
 						</div>
 						<div class="roombook">
 							<div class="roombooki" th:each="services : ${listservice}">
@@ -130,7 +130,7 @@
 								<div style="display: flex;">
 									<div style="width: 50%;">
 										<span class="contentBooked">Unit:</span><br>
-										<span class="contentBooked">Price:</span>
+										<span class="contentBooked">Price:</span><br>
 										<span class="contentBooked">Description:</span>
 									</div>
 									<div >
@@ -192,16 +192,25 @@
 					</table>
 <!-- 						<input type="hidden" name="money" th:id="money" >						 -->
 						<input type="hidden" name="idpro" th:id="idpro" >
-						<input type="hidden" name="id" th:id="id">						
-					<div style="float: right; padding:20px;">
-						<button th:id="addpayment" class="btn btn-primary" style="margin-left: 5px;" onclick="addpayment()" >Confirm</button>
-					</div>				
+						<input type="hidden" name="id" th:id="id">
+					<div
+						style="width: 57%; margin-top: 15px; display: flex; float: right; margin-right: 15px;">
+						<div>
+							<button style="margin-right: 15px; width: 100px;"
+								class="btn btn-primary" onclick="goBack()">BACK</button>
+						</div>
+						<div>
+							<button th:id="addpayment" class="btn btn-primary"
+								style="margin-left: 5px; width: 100px;" onclick="addpayment()">Confirm</button>
+						</div>
+					</div>
 				</div>						
-			</div>
+			</div>			
 		</div>
 	</div>
 	
-	<form th:id="visitSumary" th:action="@{/summary}" method="post" style="display: none"></form>
+	<form th:id="visitSumary" th:action="@{/summary}" method="get" style="display: none">	
+	</form>
 	<script type="text/javascript" src="info.js" ></script>
 </body>
 </html>

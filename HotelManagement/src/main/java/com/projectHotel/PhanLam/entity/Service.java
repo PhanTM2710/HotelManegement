@@ -21,6 +21,7 @@ public class Service {
 	private String desciption;
 	private String unit;
 	private String image;
+	private boolean isDelete;
 	
 	@JsonManagedReference
 	@OneToMany(mappedBy = "service")
@@ -68,6 +69,12 @@ public class Service {
 	}
 	public void setPrice(long price) {
 		this.price = price;
+	}
+	public boolean isisDelete() {
+		return isDelete;
+	}
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 }

@@ -72,7 +72,7 @@
    		    function(room, status){
    		    	if (status == "success") {
    		    		if (room.id != undefined) {
-   	   		    		alert('Đã thêm phòng '+room.roomNumber+' vào danh sách!');
+   	   		    		alert('Sẽ thêm phòng '+room.roomNumber+' vào danh sách!');   	   		    		
    	   		    		location.reload();
    		    		} else {
    		    			alert('Phòng đã được chọn. Vui lòng chọn phòng khác!');
@@ -125,4 +125,14 @@
 				$('.total').val(0);
 			}
 		});
+		
+//		$(document).ready(function() {
+//			if(!= undefine){
+//				$('#buttonNext').css({"display": "block"});
+//			}
+//		});
+		
+		function goBack() {
+			window.history.back();
+		}
     		

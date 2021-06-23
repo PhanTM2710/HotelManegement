@@ -25,8 +25,8 @@ public class Room {
 	private long price;
 	private String type;
 	private String description;
-	private String roomCapacity;
-	
+	private int roomCapacity;
+	private boolean isDelete;
 	@JsonManagedReference
 	@OneToMany(mappedBy = "room")
 	private List<BookingDetail> bookingDetail;
@@ -98,7 +98,7 @@ public class Room {
 	}
 
 
-	public String getRoomCapacity() {
+	public int getRoomCapacity() {
 		return roomCapacity;
 	}
 
@@ -110,9 +110,17 @@ public class Room {
 		this.bookingDetail = bookingDetail;
 	}
 
-	public void setRoomCapacity(String roomCapacity) {
+	public void setRoomCapacity(int roomCapacity) {
 		this.roomCapacity = roomCapacity;
 	}
 
+	public boolean isisDelete() {
+		return isDelete;
+	}
 
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
+
+	
 }

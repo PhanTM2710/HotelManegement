@@ -7,6 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -142,18 +146,18 @@ public class HomeController {
 		return "infor";
 	}
 	
-	@PostMapping(value = "/summary")
-	public String summary(Model model) {
-// random ID booking
+	@Transactional(value = TxType.REQUIRED)
+	@GetMapping(value = "/summary")
+	public String summary(HttpServletRequest request) {
 		String id=bookingsession.randomId();
-		bookingsession.setId(id);	
+		bookingsession.setId(id);
 //Send ID to mail customer		
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setFrom("hotelluxury27@gmail.com");
 		mailMessage.setTo(bookingsession.getPerson().getEmail());
 		
 		String mailSubject = "LUXURY HOTEL SEND CODE BOOKING";
-		String mailText = bookingsession.getId();
+		String mailText ="Your booking code:  "+ bookingsession.getId() +"\n"+"Do not give this booking code to others. Please!!!";
 		
 		mailMessage.setSubject(mailSubject);
 		mailMessage.setText(mailText);
@@ -167,20 +171,21 @@ public class HomeController {
 		bookinga.setEndDate(bookingsession.getEndDate());
 		bookinga.setAmount(bookingsession.getAmount());
 		bookinga.setPromotion(bookingsession.getPromotion());
-		bookinga.setPerson(bookingsession.getPerson());		
+		bookinga.setPerson(bookingsession.getPerson());	
+		bookinga.setisDelete(false);
 		booking.save(bookinga);	
 
 //save payment		
-		Payment payments = new Payment(bookingsession.getPayment().getDate(), bookingsession.getAmount(),bookingsession.getPayment().getDesciption(), bookingsession.getPayment().getCard(), bookinga);
+		Payment payments = new Payment(bookingsession.getPayment().getDate(), bookingsession.getAmount(),bookingsession.getPayment().getDesciption(), bookingsession.getPayment().getCard(), bookinga,false);
 		payment.save(payments);	
 //save bookingdetail
 		for (BookingDetail details : bookingsession.getBookingDetail()) {
-			BookingDetail bookidetail = new BookingDetail(bookinga, details.getRoom()) ;
+			BookingDetail bookidetail = new BookingDetail(false,bookinga, details.getRoom()) ;
 			bookingdetail.save(bookidetail);
 		}
 //save serviceDetail		
 		for (ServiceDetail details : bookingsession.getServiceDetails()) {
-			ServiceDetail serdetail = new ServiceDetail(bookinga, details.getService()) ;
+			ServiceDetail serdetail = new ServiceDetail(false,bookinga, details.getService()) ;
 			servicedetai.save(serdetail);
 		}
 //Tru tien khach hanng		
@@ -194,15 +199,17 @@ public class HomeController {
 		Optional<CreditCard> cards = card.findById(1);		
 		if(cards != null) {
 			long amount = cards.get().getAmount() ;
-			amount += bookingsession.getAmount();	
-			
+			amount += bookingsession.getAmount();				
 			CreditCard cardupdate = cards.get();
 			cardupdate.setAmount(amount);
 			card.save(cardupdate);
 		}
-//remove session		
-		bookingsession.removeall();				
-		 return "redirect:/room";
+//remove session
+		
+		request.setAttribute("bookingId", id);
+		bookingsession.removeall();
+		
+		 return "redirect:/searchbooking";
 	}
 	
 	@GetMapping(value = "/searchbooking")
@@ -211,9 +218,49 @@ public class HomeController {
 	}
 	
 	@PostMapping(value = "/showbooking")
-	public String showbooking( String id) {
+	public String showbooking(String id,Model model) {
 		Optional<Booking> codebooking = booking.findById(id);
-		return "showbooking";
+		Booking bookings =codebooking.get();		
+		model.addAttribute("booking", bookings);
+		return "showbooking";		
+	}
 		
+	@Transactional(value = TxType.REQUIRED)
+	@PostMapping(value = "/cancelbooking")
+	public String cancelbooking(String id ,Model model) {
+		Optional<Booking> bookings = booking.findById(id);
+		Booking bookinga = bookings.get();
+		bookinga.setisDelete(true);
+		booking.save(bookinga);		
+														
+		CreditCard cardKH = bookinga.getPayment().getCard();
+		long amountcong = cardKH.getAmount();
+		amountcong += bookinga.getAmount()*(80/100);
+		cardKH.setAmount(amountcong);
+		card.save(cardKH);
+
+		Optional<CreditCard> cards = card.findById(1);		
+		if(cards != null) {
+			long amount = cards.get().getAmount() ;
+			amount -= bookinga.getAmount()*(20/100);				
+			CreditCard cardupdate = cards.get();
+			cardupdate.setAmount(amount);
+			card.save(cardupdate);
+		}	
+		
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
+		mailMessage.setFrom("hotelluxury27@gmail.com");
+		mailMessage.setTo(bookinga.getPerson().getEmail());
+		
+		String mailSubject = "LUXURY HOTEL REFUNDS BOOKING";
+		String mailText ="Luxury Hotels refund customers,check your account again,please!. Have a good time, see you next time.\n"   + "Booking amount:   " +  bookinga.getAmount()+"VND\n" 
+							+ "Money back:       " + (bookinga.getAmount()*80/100) +"VND\n"
+							+ "CreditCard money: " + amountcong + "VND";
+		
+		mailMessage.setSubject(mailSubject);
+		mailMessage.setText(mailText);		
+		mailSender.send(mailMessage);
+		
+		return "redirect:/room";
 	}
 }

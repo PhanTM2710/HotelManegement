@@ -230,7 +230,6 @@ public class BookingSession {
 	
 	public void removeall() {
 		serviceDetails.removeAll(serviceDetails);
-		bookingDetail.removeAll(bookingDetail);
-		
+		bookingDetail.removeAll(bookingDetail);		
 	}
 }

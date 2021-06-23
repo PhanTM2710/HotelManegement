@@ -14,7 +14,7 @@ public class ServiceDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+	private boolean isDelete;
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "booking_id")
@@ -54,9 +54,32 @@ public class ServiceDetail {
 		this.booking = booking;
 		this.service = service;
 	}
+	
+
+	public ServiceDetail(boolean isDelete, Booking booking, Service service) {
+		this.isDelete = isDelete;
+		this.booking = booking;
+		this.service = service;
+	}
+
+	public boolean isDelete() {
+		return isDelete;
+	}
+
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
+	}
 
 	public ServiceDetail() {
 
+	}
+
+	public boolean isisDelete() {
+		return isDelete;
+	}
+
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 
 	

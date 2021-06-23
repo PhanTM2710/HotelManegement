@@ -18,7 +18,7 @@ public class Payment {
 	private String date;
 	private long amount;
 	private String desciption;
-
+	private boolean isDelete;
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "card_id")
@@ -76,12 +76,21 @@ public class Payment {
 		this.desciption = desciption;
 	}
 
-	public Payment(String date, long amount, String desciption, CreditCard card, Booking booking) {
+	public Payment(String date, long amount, String desciption, CreditCard card, Booking booking,boolean isDelete) {
 		this.date = date;
 		this.amount = amount;
 		this.desciption = desciption;
 		this.card = card;
 		this.booking = booking;
+		this.isDelete=isDelete;
+	}
+
+	public boolean isDelete() {
+		return isDelete;
+	}
+
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 
 	public Payment(String date, long amount, CreditCard card, Booking booking) {
@@ -106,6 +115,14 @@ public class Payment {
 		this.date = date;
 		this.amount = amount;
 		this.card = card;
+	}
+
+	public boolean isisDelete() {
+		return isDelete;
+	}
+
+	public void setisDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 
 		

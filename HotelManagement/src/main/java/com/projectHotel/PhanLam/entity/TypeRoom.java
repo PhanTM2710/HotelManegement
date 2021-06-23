@@ -20,7 +20,7 @@ public class TypeRoom {
 	private String type;
 	private String size;
 	private String image;
-	
+	private boolean isDelete;
 	@JsonManagedReference
 	@OneToMany(mappedBy="typeRoom")
 	private List<Room> room;	
@@ -56,6 +56,12 @@ public class TypeRoom {
 	}
 	public void setSize(String size) {
 		this.size = size;
+	}
+	public boolean isDelete() {
+		return isDelete;
+	}
+	public void setDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 	
 }

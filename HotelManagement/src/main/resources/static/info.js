@@ -62,11 +62,15 @@
 			$("#Msgsucces").text("Payment is required!");
 			$('#success').css({"display": "table-caption", "position": "relative", "width": "181px"});
 			validFlg = false;
-		} else {
+		} else if(id==null ) {
+			$("#Msgsucces").text("Please choose a card to pay");
+			$('#success').css({"display": "table-caption", "position": "relative", "width": "181px"});
+			validFlg = false;
+		}else{			
 			$("#Msgsucces").text("");
 			$('#success').css({"display": "none"});
 		}
-		
+			
 		return validFlg;
 	}    
 	
@@ -83,7 +87,7 @@
 		var id = $('#id').val();
 		var idPromo=$('#idpro').val();		
 		
-		validFlg = check(name,phone,email,cardnumber);
+		validFlg = check(name,phone,email,cardnumber,id);
 		
 		var result = confirm('YOU ARE SURE?');
 		
@@ -106,7 +110,7 @@
 			    			alert('Booking unsuccessful!');
 			    		}	
 				} else {
-					alert('Something is wroong!');
+					alert('Something is wrong!');
 				}
 			});
 		}
@@ -121,7 +125,7 @@
 		}, function(promotion, status) {
 			if (status == "success") {
 				if (promotion.code != undefined) {
-					alert('Mã giảm giá ' + promotion.code +' được áp dụng thành công!');
+					alert(' Discount code' + promotion.code +' applied successfully!');
 					$("#discount").text(promotion.discount);					
 					$("#afterDiscount").text(moneybefore - ((moneybefore * promotion.discount)/100));
 					$("#hidenafter").val(moneybefore - ((moneybefore * promotion.discount)/100));
@@ -129,10 +133,10 @@
 					$('#code').val(promotion.code);
 					$('#idpro').val(promotion.id);
  		    	} else {
- 		    		alert('Mã giảm giá không tồn tại!');
+ 		    		alert('Discount code not found!');
  		    	}						
 			} else {
-				alert('Mã giảm giá không tồn tại!');
+				alert('Something is wrong!');
 			}
 		});
 	}
@@ -156,7 +160,7 @@
 					$('#success').css({"display": "table-caption", "position": "relative", "width": "181px","background-color":"red","font-size":"16px"});
  		   		}						
 			} else {
-				alert('Something is wroong!');
+				alert('Something is wrong!');
 			}
 		})
 	}
