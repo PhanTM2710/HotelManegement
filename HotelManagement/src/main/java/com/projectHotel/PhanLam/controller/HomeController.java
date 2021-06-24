@@ -27,6 +27,7 @@ import com.projectHotel.PhanLam.entity.BookingDetail;
 import com.projectHotel.PhanLam.entity.BookingSession;
 import com.projectHotel.PhanLam.entity.CreditCard;
 import com.projectHotel.PhanLam.entity.Payment;
+import com.projectHotel.PhanLam.entity.Promotion;
 import com.projectHotel.PhanLam.entity.Room;
 import com.projectHotel.PhanLam.entity.Service;
 import com.projectHotel.PhanLam.entity.ServiceDetail;
@@ -36,6 +37,7 @@ import com.projectHotel.PhanLam.repository.IBookingDetail;
 import com.projectHotel.PhanLam.repository.IBookingPerson;
 import com.projectHotel.PhanLam.repository.ICreditCard;
 import com.projectHotel.PhanLam.repository.IPayment;
+import com.projectHotel.PhanLam.repository.IPromotion;
 import com.projectHotel.PhanLam.repository.IRoom;
 import com.projectHotel.PhanLam.repository.IService;
 import com.projectHotel.PhanLam.repository.IServiceDetail;
@@ -72,6 +74,8 @@ public class HomeController {
 	private IServiceDetail servicedetai;
 	@Autowired
 	private ICreditCard card;
+	@Autowired
+	private IPromotion promo;
 		
 	@GetMapping(value = {"/room","/"})
 	public String getListRoom(Model model) {
@@ -148,7 +152,7 @@ public class HomeController {
 	
 	@Transactional(value = TxType.REQUIRED)
 	@GetMapping(value = "/summary")
-	public String summary(HttpServletRequest request) {
+	public String summary() {
 		String id=bookingsession.randomId();
 		bookingsession.setId(id);
 //Send ID to mail customer		
@@ -174,7 +178,16 @@ public class HomeController {
 		bookinga.setPerson(bookingsession.getPerson());	
 		bookinga.setisDelete(false);
 		booking.save(bookinga);	
-
+		
+		
+		if(bookingsession.getPromotion() != null) {
+			Optional<Promotion> promotion =promo.findById(bookingsession.getPromotion().getId());
+			Promotion promotions = promotion.get();
+			int promoTime = promotions.getPromotionTime();
+			promoTime -= 1;
+			promotions.setPromotionTime(promoTime);
+			promo.save(promotions);
+		}
 //save payment		
 		Payment payments = new Payment(bookingsession.getPayment().getDate(), bookingsession.getAmount(),bookingsession.getPayment().getDesciption(), bookingsession.getPayment().getCard(), bookinga,false);
 		payment.save(payments);	
@@ -204,9 +217,7 @@ public class HomeController {
 			cardupdate.setAmount(amount);
 			card.save(cardupdate);
 		}
-//remove session
-		
-		request.setAttribute("bookingId", id);
+//remove session		
 		bookingsession.removeall();
 		
 		 return "redirect:/searchbooking";
@@ -253,9 +264,9 @@ public class HomeController {
 		mailMessage.setTo(bookinga.getPerson().getEmail());
 		
 		String mailSubject = "LUXURY HOTEL REFUNDS BOOKING";
-		String mailText ="Luxury Hotels refund customers,check your account again,please!. Have a good time, see you next time.\n"   + "Booking amount:   " +  bookinga.getAmount()+"VND\n" 
-							+ "Money back:       " + (bookinga.getAmount()*80/100) +"VND\n"
-							+ "CreditCard money: " + amountcong + "VND";
+		String mailText ="Luxury Hotels refund customers, check your account again, please!. Have a good time, see you next time.\n"   + "Booking amount:   " +  bookinga.getAmount()+" VND\n" 
+							+ "Money back:       " + (bookinga.getAmount()*80/100) +" VND\n"
+							+ "CreditCard money: " + amountcong + " VND";
 		
 		mailMessage.setSubject(mailSubject);
 		mailMessage.setText(mailText);		

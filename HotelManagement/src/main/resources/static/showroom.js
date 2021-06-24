@@ -42,6 +42,8 @@
 				invalidRequiredFlg = true;
         	}
 			
+			
+			
 			if (invalidRequiredFlg) {
 				return false;
 			} else {
@@ -57,7 +59,13 @@
 						$('#errEndDate').css({"display": "block", "position": "relative", "width": "181px"});
 						return false;
 					} else {
-						return true;
+						if ($('#endDate').val() - $('#startDate').val() > 90) {
+							$("#errMsgEndDate").text("Booking time is too long!");
+							$('#errEndDate').css({"display": "block", "position": "relative", "width": "181px"});
+							return false;
+						} else {
+							return true;
+						}
 					}
 				}
 			}
@@ -126,11 +134,6 @@
 			}
 		});
 		
-//		$(document).ready(function() {
-//			if(!= undefine){
-//				$('#buttonNext').css({"display": "block"});
-//			}
-//		});
 		
 		function goBack() {
 			window.history.back();

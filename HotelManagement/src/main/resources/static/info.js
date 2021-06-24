@@ -81,8 +81,8 @@
 		var phone = $("#phone").val();
 		var address = $("#address").val();
 		var email = $("#email").val();		
-		var date = $("#birthday").val();
-		var birthday = $.date(date);
+//		var date = $("#birthday").val();
+		var birthday = $("#birthday").val();
 		var descg = $('#description').val();
 		var id = $('#id').val();
 		var idPromo=$('#idpro').val();		
@@ -201,4 +201,19 @@
 		}
      });
 	
+	$( function() {
+	    $( "#birthday" ).datepicker();
+  	} );
+  	
+	 	var today = new Date();
+	 	var today_format =  (today.getMonth() + 1) + "/"
+	    						+ today.getDate() + "/"
+    							+ today.getFullYear();
 
+		var minDateVal = new Date();
+		minDateVal.setDate(minDateVal.getDate() - 1);
+        $('#birthday').datepicker({
+            uiLibrary: 'bootstrap4',
+            iconsLibrary: 'fontawesome',
+            maxDate: minDateVal  
+        });        

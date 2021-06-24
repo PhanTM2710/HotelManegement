@@ -68,7 +68,7 @@ public class BookingController {
 				if (!"".equals(idpro)) {
 					int idpromo = Integer.parseInt(idpro);
 					Optional<Promotion> promotion = promo.findById(idpromo);
-					if(promotion != null){
+					if((!promotion.isEmpty()) && (promotion.get().getPromotionTime() > 0)){
 						bookingSession.setPromotion(promotion.get());
 						bookingSession.setAmount(bookingSession.priceend());
 					}

@@ -19,7 +19,7 @@ body {
 }
 
 .divtyperoom{
-	width:90%;
+	width:91%;
 	min-height: 350px;
 	display: flex;
 	flex-wrap: wrap;
@@ -225,4 +225,13 @@ label{
 	margin-right:20px;
 	border: 1px solid gray;
 	margin-bottom: 20px;
+}
+
+.textHeader{
+	width: 48%;
+    margin: auto;
+    padding: 72px;
+    font-size: 71px;
+    color: white;
+    font-weight: 600;
 }
