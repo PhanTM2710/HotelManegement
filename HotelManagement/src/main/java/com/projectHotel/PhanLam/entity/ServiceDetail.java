@@ -15,6 +15,7 @@ public class ServiceDetail {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private boolean isDelete;
+	private int quantity;
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "booking_id")
@@ -80,6 +81,14 @@ public class ServiceDetail {
 
 	public void setisDelete(boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 	

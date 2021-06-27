@@ -152,11 +152,12 @@
 					</div>
 				</div>
 				<div style="float: right; padding: 20px; padding-right: 50px;">
-				
-					<form th:action="@{/cancelbooking}" method="post">
-						<input type="hidden" th:value="${booking.id}" name="id">					
-						<button th:id="cancel" class="btn btn-primary" type="submit"
-						style="width: 120px; background-color: red; " onclick="cancelBooking()">Cancel</button>
+					<input id="idbooking" type="hidden" th:value="${booking.id}" name="idbooking">
+					<button th:id="cancel" class="btn btn-primary"
+						style="width: 120px; background-color: red;"
+						onclick="cancelBooking()">Cancel</button>
+					<form th:id="cancelbook" th:action="@{/cancelbooking}" method="post">
+						<input type="hidden" th:value="${booking.id}" name="id">
 					</form>
 				</div>
 			</div>
@@ -180,8 +181,25 @@
 		
         function cancelBooking() {
         	var result = confirm('Are you sure? This action will forfeit 20% of your booking amount.');
-		}
-        
+    		var id = $('#idbooking').val();    		    		
+    		if (result) {
+    			$.post("/cancel", {
+    			id : id,
+    			}, function(bookings, status) {
+    				if (status == "success") {
+    					if (bookings.id != undefined) {
+    						alert('Cancel Success!');
+    						$("#cancelbook").submit();
+    			    	} else {
+    			    		alert('Cancel unsuccessfull!');
+    			    	}	
+    				} else {
+    					alert('Something is wrong!');
+    				}
+    			});
+    		}
+
+    	}
 	</script>
 </body>
 </html>

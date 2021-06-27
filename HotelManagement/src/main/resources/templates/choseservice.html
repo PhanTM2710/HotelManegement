@@ -39,15 +39,15 @@
 						 </div>
 						<div  class="ContentRoom">
 							<div >
-								<span style="font-size: 16px; margin-left: 10px;">Service name: </span>
+								<span style="font-size: 16px;font-weight: 600; ">Service name: </span>
 								<span style="font-size: 18px;" th:text="${service.name}"></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Price: </span>
-								<strike><span style="font-size: 20px; color: gray" th:text="${service.price + 200000}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 20px; color: gray"> VND</span></strike>
-								<span style="font-size: 20px; color: red" th:text="${service.price}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 20px; color: red"> VND <img style="width: 35px; position: absolute;" src="../image/hotPrice_gif.gif" /></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Unit: </span>
-								<span style="font-size: 20px;" th:text="${service.unit}"></span><br>
-								<span style="font-size: 16px; margin-left: 10px;">Description: </span>
-								<span style="font-size: 20px;" th:text="${service.desciption}"></span>
+								<span style="font-size: 16px;font-weight: 600;">Price: </span>
+								<strike><span style="font-size: 18px; color: gray" th:text="${service.price + 200000}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 18px; color: gray"> VND</span></strike>
+								<span style="font-size: 18px; color: red" th:text="${service.price}" class="price" onchange="formatMoney(this);"></span><span style="font-size: 18px; color: red"> VND <img style="width: 35px; position: absolute;" src="../image/hotPrice_gif.gif" /></span><br>
+								<span style="font-size: 16px;font-weight: 600; ">Unit: </span>
+								<span style="font-size: 18px;" th:text="${service.unit}"></span><br>
+								<span style="font-size: 16px;font-weight: 600; ">Description: </span>
+								<span style="font-size: 18px;" th:text="${service.desciption}"></span>
 							</div>
 						</div>
 						<div>
@@ -70,17 +70,20 @@
 								<h4 style="margin-left: 85px;"  th:text="${servicedetail.service.name}"></h4>
 							</div>
 							<div style="display: flex;">
-								<div style="width: 50%;">
+								<div style="width: 40%;">
 									<span class="contentBooked">Unit:</span><br>
-									<span class="contentBooked">Price:</span>
-									<span class="contentBooked">Description:</span>
+									<span class="contentBooked">Price:</span><br>
+									<span class="contentBooked">Description:</span><br>
+									
 								</div>
-								<div >
+								<div style="width: 60%;">
 									<span th:text="${servicedetail.service.unit}"></span><br> 
 									<span th:text="${servicedetail.service.price}" class="price" onchange="formatMoney(this);" style="margin-right: 5px;"></span><span> VND</span><br> 
-									<span th:text="${servicedetail.service.desciption}"></span>
+									<span th:text="${servicedetail.service.desciption}" style="overflow: hidden;"></span><br>
+									
 								</div>							
 							</div>
+							<span class="contentBooked" style="margin-right: 65px">Quantity:</span><span th:text="${servicedetail.quantity}"></span>
 							<div>
 								<button th:id="'remove'+ ${servicedetail.service.id}" class="btn btn-primary remove"  th:value="${servicedetail.service.id}" onclick="removeService(this)">Remove</button>
 							</div>				

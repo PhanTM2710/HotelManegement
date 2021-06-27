@@ -1,13 +1,13 @@
 package com.projectHotel.PhanLam.controller;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
@@ -238,40 +238,45 @@ public class HomeController {
 		
 	@Transactional(value = TxType.REQUIRED)
 	@PostMapping(value = "/cancelbooking")
-	public String cancelbooking(String id ,Model model) {
+	public String cancelbooking(String id ,Model model) throws ParseException {
 		Optional<Booking> bookings = booking.findById(id);
 		Booking bookinga = bookings.get();
-		bookinga.setisDelete(true);
-		booking.save(bookinga);		
-														
-		CreditCard cardKH = bookinga.getPayment().getCard();
-		long amountcong = cardKH.getAmount();
-		amountcong += bookinga.getAmount()*(80/100);
-		cardKH.setAmount(amountcong);
-		card.save(cardKH);
+		
+			bookinga.setisDelete(true);
+			booking.save(bookinga);	
+			CreditCard cardKH = bookinga.getPayment().getCard();
+			long amountcong = cardKH.getAmount();
+			amountcong += bookinga.getAmount()*(80/100);
+			cardKH.setAmount(amountcong);
+			card.save(cardKH);
 
-		Optional<CreditCard> cards = card.findById(1);		
-		if(cards != null) {
-			long amount = cards.get().getAmount() ;
-			amount -= bookinga.getAmount()*(20/100);				
-			CreditCard cardupdate = cards.get();
-			cardupdate.setAmount(amount);
-			card.save(cardupdate);
-		}	
+			Optional<CreditCard> cards = card.findById(1);		
+			if(cards != null) {
+				long amount = cards.get().getAmount() ;
+				amount -= bookinga.getAmount()*(20/100);				
+				CreditCard cardupdate = cards.get();
+				cardupdate.setAmount(amount);
+				card.save(cardupdate);
+			}	
+			
+			SimpleMailMessage mailMessage = new SimpleMailMessage();
+			mailMessage.setFrom("hotelluxury27@gmail.com");
+			mailMessage.setTo(bookinga.getPerson().getEmail());
+			
+			String mailSubject = "LUXURY HOTEL REFUNDS BOOKING";
+			String mailText ="Luxury Hotels refund customers, check your account again, please!. Have a good time, see you next time.\n"   + "Booking amount:   " +  bookinga.getAmount()+" VND\n" 
+								+ "Money back:       " + (bookinga.getAmount()*80/100) +" VND\n"
+								+ "CreditCard money: " + amountcong + " VND";
+			
+			mailMessage.setSubject(mailSubject);
+			mailMessage.setText(mailText);		
+			mailSender.send(mailMessage);
+			return "redirect:/room";
+
+														
 		
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
-		mailMessage.setFrom("hotelluxury27@gmail.com");
-		mailMessage.setTo(bookinga.getPerson().getEmail());
 		
-		String mailSubject = "LUXURY HOTEL REFUNDS BOOKING";
-		String mailText ="Luxury Hotels refund customers, check your account again, please!. Have a good time, see you next time.\n"   + "Booking amount:   " +  bookinga.getAmount()+" VND\n" 
-							+ "Money back:       " + (bookinga.getAmount()*80/100) +" VND\n"
-							+ "CreditCard money: " + amountcong + " VND";
 		
-		mailMessage.setSubject(mailSubject);
-		mailMessage.setText(mailText);		
-		mailSender.send(mailMessage);
-		
-		return "redirect:/room";
 	}
+
 }

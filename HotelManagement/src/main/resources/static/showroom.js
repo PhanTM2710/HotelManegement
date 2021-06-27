@@ -73,7 +73,7 @@
         
         function getBookingDetail(target) {
         	var roomId = $(target).val();
-        	$.post("addroom",
+        	$.post("/addroom",
    		    {
    		      id: roomId
    		    },
@@ -96,7 +96,7 @@
         	var roomId = $(target).val();
         	var result = confirm('Want to delete?')
         	
-        	$.post("delete",
+        	$.post("/delete",
    		    {
    		      id: roomId
    		    },

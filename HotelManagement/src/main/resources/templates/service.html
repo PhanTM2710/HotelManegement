@@ -38,7 +38,7 @@
 				<div class="float-right" style="padding-right: 10px;">
 					<div class="d-flex flex-row-reverse"
 						style="padding-right: 3px; padding-top: 5px;">
-						<a class="p-2 " style="color: white;" href="#">Sign In</a> <a
+						<a class="p-2 " style="color: white;" href="/login">Sign In</a> <a
 							class="p-2 " style="color: white" href="/searchbooking">Booking Manage |</a> <a
 							class="p-2 " style="color: white" href="/service">Service |</a> <a
 							class="p-2 " style="color: white" href="/room"> Types Room |</a>
@@ -50,10 +50,6 @@
 			<div class="divtyperoom" >
 				<div class="divRoom" th:each="service : ${listservice}">
 					<div class="divimage">
-<!-- 						<div class="book"> -->
-<!-- 							<a th:href="@{showroom/(id=${service.id})}" -->
-<!-- 								class="btn btn-primary">Book now</a> -->
-<!-- 						</div> -->
 						<img class="divimage--img" style="width: 369px; height: 200px;" alt="anh"
 							th:src="@{'../image/'+${service.image}}">															
 					</div>					
@@ -77,7 +73,7 @@
 								</div>
 							</div>
 						</div>
-	</div>	
+						</div>	
 						<div style="width: 70%; height: 80%; margin-left: 10px;">
 							<p style="font-size: 18px; margin-top: 15px;"
 								th:text="${service.name}"></p>

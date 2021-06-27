@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="summary.css">
+<title>Admin</title>	
+</head>
+<body >
+	<div class="admincontainer">
+		<div class="adminmenu">
+			<div style="padding-left: 59px;padding-top: 20px;">
+				<img  th:src="@{../image/logo.PNG}" style="width: 135px;height: 133px; margin: auto;">
+			</div>
+			<div>
+				<ul class="list-group">
+					<li class="btn btn-secondary"> <a href="/listRoom" >ROOM</a></li>
+					<li class="btn btn-secondary"><a href="#" >SERVICE</a></li>
+					<li class="btn btn-secondary"><a href="#" >PROMOTION</a></li>
+					<li class="btn btn-secondary"><a href="#" >USER MANAGEMRNT</a></li>
+				</ul>			
+			</div>
+		</div>
+		<div class="adminlist">
+			<div class="adminlogout">
+				<div style="float: right;width: 65px;">
+					<a th:href="@{/logout}"><img  th:src="@{../image/logout.PNG}" style="width: 45px;height: 45px; margin: auto;"></a>
+				</div>
+			</div>
+			<div >
+				<table id="example" class="table" style="width: 95%;margin: auto;border: 1px solid black;margin-bottom: 15px;">
+					<thead class="thead-dark">
+						<tr>							
+							<th>Type</th>
+							<th>Room number</th>
+							<th>Price</th>
+							<th>Room Capacity</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr  th:each ="room : ${rooms}">
+							<td th:text="${room.type}"></td>
+							<td th:text="${room.roomNumber}"></td>
+							<td> <span th:text="${room.price}" class="price" onchange="formatMoney(this);" style="margin-right: 5px;"></span> <span>VND</span></td>
+							<td th:text="${room.roomCapacity}"></td>
+							<td ><a th:href="@{/editRoom/(id=${room.id})}" class="btn btn-primary">edit</a></td>
+							<td th:text="${room.id}">delete</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+	</div>
+	<script type="text/javascript">
+		 function formatMoney(target) {
+	     	var money = parseInt($(target).text());
+	     	$(target).text(money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+	     }
+	     
+	     //Format money khi load trang
+	     $(".price").change();
+	     
+		$(document).ready(function() {
+			$('#example').dataTable({
+				"lengthMenu" : [ 10, 25, 50, 75, 100 ],
+			
+			});
+			$('#example_info').css({"display":"none"})
+		});
+		
+	</script>
+</body>
+</html>

@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+
 @Component
 @SessionScope
 public class BookingSession {
@@ -35,10 +36,8 @@ public class BookingSession {
 	public long totalRoomandService() {
 
 		long priceRoom =amount; 
-		long priceService =0;		
-		for (ServiceDetail serviceDetail : serviceDetails) {
-			priceService += serviceDetail.getService().getPrice();
-		}
+		long priceService = sumServicePrice();		
+		
 		
 		long amount = (priceRoom + priceService);
 		this.setAmount(amount);		
@@ -65,11 +64,20 @@ public class BookingSession {
 		
 		if(Detail == null) {
 			ServiceDetail detail = new ServiceDetail();
+			detail.setQuantity(1);
 			detail.setService(service);
 			serviceDetails.add(detail);
 			return true;
-		}
-		
+		}else {
+			int quantityNew = Detail.getQuantity() + 1;
+			
+			if(quantityNew<=0) {
+				serviceDetails.remove(Detail);
+			} else {
+				Detail.setQuantity(quantityNew);
+				return true;
+			}	
+		}					
 		return false;
 	}
 	
@@ -79,6 +87,7 @@ public class BookingSession {
 			serviceDetails.remove(Detail);
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -157,7 +166,7 @@ public class BookingSession {
 	public long sumServicePrice() {
 		long total=0;
 		for (ServiceDetail serviceDetail : serviceDetails) {
-			total += serviceDetail.getService().getPrice();
+			total += serviceDetail.getService().getPrice()*serviceDetail.getQuantity();
 		}
 		
 		return total;

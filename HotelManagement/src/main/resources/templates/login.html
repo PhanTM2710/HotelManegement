@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="summary.css">
+<title>Booking Manage</title>
+</head>
+<body>
+	<div>
+		<div style="background-color: #E6E6E6;padding-top:150px;height: 625px;">
+			<div >
+				<form th:action="@{/login}" method="post"
+					style="max-width: 350px; margin: 0 auto;">
+
+					<div th:if="${param.error}">
+						<p class="text-danger">Invalid username or password</p>
+					</div>
+
+					<div th:if="${param.logout}">
+						<p class="text-warning">You have been logged out.</p>
+					</div>
+
+					<div class="border border-secondary p-3 rounded">
+						<p style="font-size: 25px;">Please sign in</p>
+						<p>
+							<input type="text" name="username" class="form-control"
+								placeholder="username" required autofocus />
+						</p>
+						<p>
+							<input type="password" name="password" class="form-control"
+								placeholder="Password" required />
+						</p>
+						<p>
+							<input type="checkbox" name="remember-me" />&nbsp;Remember Me
+						</p>
+						<p style="padding-left: 115px;">
+							<button type="submit" class="btn btn-primary" style="width: 100px;">LOGIN</button>
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

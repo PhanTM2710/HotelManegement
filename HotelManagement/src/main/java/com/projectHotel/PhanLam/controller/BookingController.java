@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.annotation.SessionScope;
@@ -28,6 +29,7 @@ import com.projectHotel.PhanLam.repository.IService;
 
 @RestController
 @SessionScope
+@PreAuthorize("permitAll()")
 public class BookingController {
 	
 	@Autowired
@@ -49,6 +51,7 @@ public class BookingController {
 	private ICreditCard creditCard;
 		
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/addpayment")
 	public ResponseEntity<?> addpayment(String name,String phone, String address, String email, String birthday,int id,String descr,String idpro ) throws ParseException{
 		Optional<CreditCard> card = creditCard.findById(id);			
@@ -97,6 +100,7 @@ public class BookingController {
 		}
 	}	
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/addroom")
 	public ResponseEntity<?> addRoom(Integer id) throws ParseException{
 		Optional<Room> rooms= room.findById(id);
@@ -110,6 +114,7 @@ public class BookingController {
 		}
 	}
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/delete")
 	public ResponseEntity<?> removeRoom(Integer id){
 		Optional<Room> rooms= room.findById(id);
@@ -123,6 +128,7 @@ public class BookingController {
 		}
 	}	
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/addservice")
 	public ResponseEntity<?> addService(Integer id){
 		Optional<Service> services = service.findById(id);
@@ -136,6 +142,7 @@ public class BookingController {
 		}
 	}
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/deleteservice")
 	public ResponseEntity<?> removeService(Integer id){
 		Optional<Service> services = service.findById(id);
@@ -149,6 +156,7 @@ public class BookingController {
 		}
 	}	
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/checkPromo")
 	public ResponseEntity<?> checkpromo(String code) throws ParseException{
 		Promotion promotion = promo.findByCode(code);
@@ -169,7 +177,8 @@ public class BookingController {
 			return ResponseEntity.ok("");
 		}
 	}	
-	
+			
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/checkcard")
 	public ResponseEntity<?> checkCard(String cardNumber , long money) throws ParseException{
 		CreditCard card = creditCard.findByCardNumber(cardNumber);
@@ -184,19 +193,35 @@ public class BookingController {
 		}
 	}
 	
+	@PreAuthorize("permitAll()")
 	@PostMapping(value = "/checkCodeBooking")
 	public ResponseEntity<?>  checCodeBooking(String id) throws ParseException{
 		Optional<Booking> bookings = booking.findById(id);
 		if (!bookings.isEmpty()) {
 			if(bookings.get().isisDelete()==false) {
-				System.out.println("co boking================================");
 				return ResponseEntity.ok(bookings);
 			} else {
-				System.out.println("=========================== boking================================");
 				return ResponseEntity.ok("");
 			}
 		} else {
-			System.out.println("=========================== boking================================");
+			return ResponseEntity.ok("");
+		}
+	}
+	
+	@PreAuthorize("permitAll()")
+	@PostMapping(value = "/cancel")
+	public ResponseEntity<?>  cancel(String id) throws ParseException{
+		Optional<Booking> bookings = booking.findById(id);
+		if (!bookings.isEmpty()) {
+			Date current = new Date();
+			DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");  
+			Date startdate = dateFormat.parse(bookings.get().getStartDate());
+			if(bookings.get().isisDelete()==false && (current.getTime() < startdate.getTime())) {
+				return ResponseEntity.ok(bookings);
+			} else {
+				return ResponseEntity.ok("");
+			}
+		} else {
 			return ResponseEntity.ok("");
 		}
 	}

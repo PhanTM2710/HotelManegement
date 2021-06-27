@@ -1,13 +1,14 @@
 package com.projectHotel.PhanLam.entity;
 
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Role {
@@ -16,10 +17,9 @@ public class Role {
 	private int id;
 	private String role;
 	
-	@JsonBackReference
-	@ManyToOne
-	@JoinColumn(name = "account_id")
-	private Account account;
+	@JsonManagedReference
+	@ManyToMany(mappedBy = "role")
+	private Set<Account> account;
 
 	public int getId() {
 		return id;
@@ -37,12 +37,27 @@ public class Role {
 		this.role = role;
 	}
 
-	public Account getAccount() {
+	public Set<Account> getAccount() {
 		return account;
 	}
 
-	public void setAccount(Account account) {
+	public void setAccount(Set<Account> account) {
 		this.account = account;
 	}
+
+	public Role(String role, Set<Account> account) {
+		this.role = role;
+		this.account = account;
+	}
+
+	public Role(String role) {
+
+		this.role = role;
+	}
+
+	public Role() {
+
+	}
+	
 	
 }

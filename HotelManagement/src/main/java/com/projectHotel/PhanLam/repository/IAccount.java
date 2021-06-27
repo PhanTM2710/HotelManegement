@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.projectHotel.PhanLam.entity.Account;
 @Repository
 public interface IAccount extends JpaRepository<Account, Integer>{
-	
+	Account findByUserName(String userName);
 }
